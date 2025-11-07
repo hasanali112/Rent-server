@@ -6,6 +6,10 @@
 
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from '@prisma/client/runtime/library';
 
 const globalErrorHandler = (
   err: any,
@@ -18,16 +22,15 @@ const globalErrorHandler = (
   let message = err.message || 'Something went wrong!';
   let error = err;
 
-  if (err) {
+  if (err instanceof PrismaClientValidationError) {
     message = 'Validation Error';
     error = err.message;
+  } else if (err instanceof PrismaClientKnownRequestError) {
+    if (err.code === 'P2002') {
+      message = 'Duplicate Key error';
+      error = err.meta;
+    }
   }
-  // } else if (err:any) {
-  //   if (err.code === 'P2002') {
-  //     message = 'Duplicate Key error';
-  //     error = err.meta;
-  //   }
-  // }
 
   res.status(statusCode).json({
     success,

@@ -22,6 +22,7 @@
     "schema": "./prisma/schema/"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.0",
     "@types/node": "^24.10.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
