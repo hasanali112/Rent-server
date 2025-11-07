@@ -1,0 +1,23 @@
+
+enum UserRole{
+    ADMIN
+    SUPER_ADMIN
+    HOUSEOWNER
+    MESSOWER
+    CATERINGOWNER
+    DOCTOR
+    PATIENT
+}
+
+enum UserStatus{
+    PENDING
+    ACTIVE
+    INACTIVE
+    BLOCKED
+}
+
+enum Gender{
+    MALE
+    FEMALE
+    OTHER
+}
