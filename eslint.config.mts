@@ -17,7 +17,7 @@ export default [
       '**/.git/*',
       '**/.vscode/*',
       '**/*.d.ts',
-      'eslint.config.mts',
+      'prisma.config.ts',
     ],
   },
 
@@ -37,6 +37,7 @@ export default [
   // TypeScript-specific settings
   {
     files: ['**/*.ts'],
+    ignores: ['prisma.config.ts'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -73,11 +74,6 @@ export default [
       'no-unused-vars': 'warn',
       'no-var': 'error',
       'prefer-const': 'error',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-argument': 'off',
     },
   },
 ];

@@ -1,3 +1,20 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
 model User {
   id                 String     @id @default(uuid())
   email              String?    @unique
@@ -9,9 +26,9 @@ model User {
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
   admin              Admin?
-  doctor             Doctor?
   cutomer            Customer?
   host               Host?
+  doctor             Doctor?
 
   @@map("users")
 }
@@ -31,6 +48,7 @@ model Admin {
 
   @@map("admins")
 }
+
 
 model Doctor {
   id                  String   @id @default(uuid())
@@ -55,10 +73,12 @@ model Doctor {
   @@map("doctors")
 }
 
+
+
 model Host {
-  id               String    @id @default(uuid())
-  userId           String    @unique
-  email            String?   @unique
+  id               String      @id @default(uuid())
+  userId           String      @unique
+  email            String?     @unique
   name             String?
   profilePhoto     String?
   contactNumber    String?
@@ -67,17 +87,17 @@ model Host {
   dateOfBirth      DateTime?
   preferences      Json?
   rating           Float?
-  verified         Boolean   @default(false)
-  joinedAt         DateTime  @default(now())
+  verified         Boolean     @default(false)
+  joinedAt         DateTime    @default(now())
   lastActiveAt     DateTime?
-  bookingCount     Int       @default(0)
+  bookingCount     Int         @default(0)
   favoriteServices Json?
   notes            String?
-  isDeleted        Boolean   @default(false)
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-
-  user User @relation(fields: [userId], references: [id])
+  isDeleted        Boolean     @default(false)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  houseRents       HouseRent[]
+  user             User        @relation(fields: [userId], references: [id])
 
   @@map("hosts")
 }
@@ -108,3 +128,78 @@ model Customer {
 
   @@map("customers")
 }
+
+model Category {
+  id            String      @id @default(uuid())
+  categoryName  String
+  categoryImage String
+  isDeleted     Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  houseRents    HouseRent[]
+
+  @@map("categories")
+}
+
+model HouseRent {
+  id             String         @id @default(uuid())
+  houseName      String
+  houseImages    String[]
+  location       String
+  description    String
+  price          Int
+  contactNumber  String
+  bedCount       Int
+  bathCount      Int
+  areaInSqft     Int
+  furnishingType FurnishingType
+  isAvailable    Boolean        @default(true)
+  categoryId     String
+  category       Category       @relation(fields: [categoryId], references: [id])
+  ownerId        String
+  owner          Host           @relation(fields: [ownerId], references: [id])
+  isDeleted      Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@map("houseRents")
+}
+
+enum UserRole {
+  ADMIN
+  SUPER_ADMIN
+  HOST
+  DOCTOR
+  CUSTOMER
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum FurnishingType {
+  FURNISHED
+  SEMI_FURNISHED
+  UNFURNISHED
+}
+
+enum Facility {
+  AC
+  WIFI
+  MEALS_INCLUDED
+  LAUNDRY
+  PARKING
+  WATER_FILTER
+  STUDY_ROOM
+}
+
+

@@ -28,11 +28,6 @@ export type User = Prisma.UserModel
  */
 export type Admin = Prisma.AdminModel
 /**
- * Model Doctor
- * 
- */
-export type Doctor = Prisma.DoctorModel
-/**
  * Model Host
  * 
  */
@@ -42,3 +37,13 @@ export type Host = Prisma.HostModel
  * 
  */
 export type Customer = Prisma.CustomerModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model HouseRent
+ * 
+ */
+export type HouseRent = Prisma.HouseRentModel

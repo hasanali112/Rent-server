@@ -7,6 +7,12 @@ CREATE TYPE "UserStatus" AS ENUM ('PENDING', 'ACTIVE', 'INACTIVE', 'BLOCKED');
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER');
 
+-- CreateEnum
+CREATE TYPE "FurnishingType" AS ENUM ('FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED');
+
+-- CreateEnum
+CREATE TYPE "Facility" AS ENUM ('AC', 'WIFI', 'MEALS_INCLUDED', 'LAUNDRY', 'PARKING', 'WATER_FILTER', 'STUDY_ROOM');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -35,29 +41,6 @@ CREATE TABLE "admins" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "admins_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "doctors" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "profilePhoto" TEXT,
-    "contactNumber" TEXT NOT NULL,
-    "address" TEXT,
-    "registrationNumber" TEXT NOT NULL,
-    "experience" INTEGER NOT NULL DEFAULT 0,
-    "gender" "Gender" NOT NULL,
-    "appointmentFee" INTEGER NOT NULL,
-    "qualification" TEXT NOT NULL,
-    "currentWorkingPlace" TEXT NOT NULL,
-    "designation" TEXT NOT NULL,
-    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
-    "averageRating" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "doctors_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -112,6 +95,41 @@ CREATE TABLE "customers" (
     CONSTRAINT "customers_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "categories" (
+    "id" TEXT NOT NULL,
+    "categoryName" TEXT NOT NULL,
+    "categoryImage" TEXT NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "categories_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "houseRents" (
+    "id" TEXT NOT NULL,
+    "houseName" TEXT NOT NULL,
+    "houseImages" TEXT[],
+    "location" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "price" INTEGER NOT NULL,
+    "contactNumber" TEXT NOT NULL,
+    "bedCount" INTEGER NOT NULL,
+    "bathCount" INTEGER NOT NULL,
+    "areaInSqft" INTEGER NOT NULL,
+    "furnishingType" "FurnishingType" NOT NULL,
+    "isAvailable" BOOLEAN NOT NULL DEFAULT true,
+    "categoryId" TEXT NOT NULL,
+    "ownerId" TEXT NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "houseRents_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
@@ -123,9 +141,6 @@ CREATE UNIQUE INDEX "admins_email_key" ON "admins"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "admins_userId_key" ON "admins"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "doctors_email_key" ON "doctors"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "hosts_userId_key" ON "hosts"("userId");
@@ -143,10 +158,13 @@ CREATE UNIQUE INDEX "customers_email_key" ON "customers"("email");
 ALTER TABLE "admins" ADD CONSTRAINT "admins_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "doctors" ADD CONSTRAINT "doctors_email_fkey" FOREIGN KEY ("email") REFERENCES "users"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "hosts" ADD CONSTRAINT "hosts_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "customers" ADD CONSTRAINT "customers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "houseRents" ADD CONSTRAINT "houseRents_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "houseRents" ADD CONSTRAINT "houseRents_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "hosts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

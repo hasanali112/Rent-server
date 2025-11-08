@@ -392,9 +392,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Admin: 'Admin',
-  Doctor: 'Doctor',
   Host: 'Host',
-  Customer: 'Customer'
+  Customer: 'Customer',
+  Category: 'Category',
+  HouseRent: 'HouseRent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "admin" | "doctor" | "host" | "customer"
+    modelProps: "user" | "admin" | "host" | "customer" | "category" | "houseRent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -562,80 +563,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Doctor: {
-      payload: Prisma.$DoctorPayload<ExtArgs>
-      fields: Prisma.DoctorFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.DoctorFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.DoctorFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>
-        }
-        findFirst: {
-          args: Prisma.DoctorFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.DoctorFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>
-        }
-        findMany: {
-          args: Prisma.DoctorFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>[]
-        }
-        create: {
-          args: Prisma.DoctorCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>
-        }
-        createMany: {
-          args: Prisma.DoctorCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.DoctorCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>[]
-        }
-        delete: {
-          args: Prisma.DoctorDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>
-        }
-        update: {
-          args: Prisma.DoctorUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>
-        }
-        deleteMany: {
-          args: Prisma.DoctorDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.DoctorUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.DoctorUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>[]
-        }
-        upsert: {
-          args: Prisma.DoctorUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DoctorPayload>
-        }
-        aggregate: {
-          args: Prisma.DoctorAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDoctor>
-        }
-        groupBy: {
-          args: Prisma.DoctorGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DoctorGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.DoctorCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DoctorCountAggregateOutputType> | number
-        }
-      }
-    }
     Host: {
       payload: Prisma.$HostPayload<ExtArgs>
       fields: Prisma.HostFieldRefs
@@ -784,6 +711,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Category: {
+      payload: Prisma.$CategoryPayload<ExtArgs>
+      fields: Prisma.CategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.CategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>
+        }
+        findMany: {
+          args: Prisma.CategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+        }
+        create: {
+          args: Prisma.CategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>
+        }
+        createMany: {
+          args: Prisma.CategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.CategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>
+        }
+        update: {
+          args: Prisma.CategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.CategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.CategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.CategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCategory>
+        }
+        groupBy: {
+          args: Prisma.CategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    HouseRent: {
+      payload: Prisma.$HouseRentPayload<ExtArgs>
+      fields: Prisma.HouseRentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HouseRentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HouseRentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>
+        }
+        findFirst: {
+          args: Prisma.HouseRentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HouseRentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>
+        }
+        findMany: {
+          args: Prisma.HouseRentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>[]
+        }
+        create: {
+          args: Prisma.HouseRentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>
+        }
+        createMany: {
+          args: Prisma.HouseRentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.HouseRentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>[]
+        }
+        delete: {
+          args: Prisma.HouseRentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>
+        }
+        update: {
+          args: Prisma.HouseRentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>
+        }
+        deleteMany: {
+          args: Prisma.HouseRentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HouseRentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.HouseRentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>[]
+        }
+        upsert: {
+          args: Prisma.HouseRentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HouseRentPayload>
+        }
+        aggregate: {
+          args: Prisma.HouseRentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHouseRent>
+        }
+        groupBy: {
+          args: Prisma.HouseRentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HouseRentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.HouseRentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HouseRentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -853,29 +928,6 @@ export const AdminScalarFieldEnum = {
 export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
-export const DoctorScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  profilePhoto: 'profilePhoto',
-  contactNumber: 'contactNumber',
-  address: 'address',
-  registrationNumber: 'registrationNumber',
-  experience: 'experience',
-  gender: 'gender',
-  appointmentFee: 'appointmentFee',
-  qualification: 'qualification',
-  currentWorkingPlace: 'currentWorkingPlace',
-  designation: 'designation',
-  isDeleted: 'isDeleted',
-  averageRating: 'averageRating',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DoctorScalarFieldEnum = (typeof DoctorScalarFieldEnum)[keyof typeof DoctorScalarFieldEnum]
-
-
 export const HostScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -926,6 +978,41 @@ export const CustomerScalarFieldEnum = {
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  categoryName: 'categoryName',
+  categoryImage: 'categoryImage',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const HouseRentScalarFieldEnum = {
+  id: 'id',
+  houseName: 'houseName',
+  houseImages: 'houseImages',
+  location: 'location',
+  description: 'description',
+  price: 'price',
+  contactNumber: 'contactNumber',
+  bedCount: 'bedCount',
+  bathCount: 'bathCount',
+  areaInSqft: 'areaInSqft',
+  furnishingType: 'furnishingType',
+  isAvailable: 'isAvailable',
+  categoryId: 'categoryId',
+  ownerId: 'ownerId',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HouseRentScalarFieldEnum = (typeof HouseRentScalarFieldEnum)[keyof typeof HouseRentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1039,30 +1126,16 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'Json'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'QueryMode'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
- * Reference to a field of type 'Gender'
- */
-export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
-    
-
-
-/**
- * Reference to a field of type 'Gender[]'
- */
-export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -1081,16 +1154,30 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 
 
 /**
- * Reference to a field of type 'Json'
+ * Reference to a field of type 'Int'
  */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
 /**
- * Reference to a field of type 'QueryMode'
+ * Reference to a field of type 'Int[]'
  */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FurnishingType'
+ */
+export type EnumFurnishingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FurnishingType'>
+    
+
+
+/**
+ * Reference to a field of type 'FurnishingType[]'
+ */
+export type ListEnumFurnishingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FurnishingType[]'>
     
 
 /**
@@ -1182,9 +1269,10 @@ export interface PrismaClientOptions {
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   admin?: Prisma.AdminOmit
-  doctor?: Prisma.DoctorOmit
   host?: Prisma.HostOmit
   customer?: Prisma.CustomerOmit
+  category?: Prisma.CategoryOmit
+  houseRent?: Prisma.HouseRentOmit
 }
 
 /* Types for Logging */

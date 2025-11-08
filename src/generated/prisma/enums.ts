@@ -37,3 +37,25 @@ export const Gender = {
 } as const
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const FurnishingType = {
+  FURNISHED: 'FURNISHED',
+  SEMI_FURNISHED: 'SEMI_FURNISHED',
+  UNFURNISHED: 'UNFURNISHED'
+} as const
+
+export type FurnishingType = (typeof FurnishingType)[keyof typeof FurnishingType]
+
+
+export const Facility = {
+  AC: 'AC',
+  WIFI: 'WIFI',
+  MEALS_INCLUDED: 'MEALS_INCLUDED',
+  LAUNDRY: 'LAUNDRY',
+  PARKING: 'PARKING',
+  WATER_FILTER: 'WATER_FILTER',
+  STUDY_ROOM: 'STUDY_ROOM'
+} as const
+
+export type Facility = (typeof Facility)[keyof typeof Facility]

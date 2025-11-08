@@ -332,6 +332,7 @@ export type HostWhereInput = {
   isDeleted?: Prisma.BoolFilter<"Host"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Host"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Host"> | Date | string
+  houseRents?: Prisma.HouseRentListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -356,6 +357,7 @@ export type HostOrderByWithRelationInput = {
   isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  houseRents?: Prisma.HouseRentOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -383,6 +385,7 @@ export type HostWhereUniqueInput = Prisma.AtLeast<{
   isDeleted?: Prisma.BoolFilter<"Host"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Host"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Host"> | Date | string
+  houseRents?: Prisma.HouseRentListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId" | "email">
 
@@ -460,6 +463,7 @@ export type HostCreateInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  houseRents?: Prisma.HouseRentCreateNestedManyWithoutOwnerInput
   user: Prisma.UserCreateNestedOneWithoutHostInput
 }
 
@@ -484,6 +488,7 @@ export type HostUncheckedCreateInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  houseRents?: Prisma.HouseRentUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type HostUpdateInput = {
@@ -506,6 +511,7 @@ export type HostUpdateInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  houseRents?: Prisma.HouseRentUpdateManyWithoutOwnerNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutHostNestedInput
 }
 
@@ -530,6 +536,7 @@ export type HostUncheckedUpdateInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  houseRents?: Prisma.HouseRentUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type HostCreateManyInput = {
@@ -680,6 +687,11 @@ export type HostSumOrderByAggregateInput = {
   bookingCount?: Prisma.SortOrder
 }
 
+export type HostScalarRelationFilter = {
+  is?: Prisma.HostWhereInput
+  isNot?: Prisma.HostWhereInput
+}
+
 export type HostCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<Prisma.HostCreateWithoutUserInput, Prisma.HostUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.HostCreateOrConnectWithoutUserInput
@@ -724,6 +736,28 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type HostCreateNestedOneWithoutHouseRentsInput = {
+  create?: Prisma.XOR<Prisma.HostCreateWithoutHouseRentsInput, Prisma.HostUncheckedCreateWithoutHouseRentsInput>
+  connectOrCreate?: Prisma.HostCreateOrConnectWithoutHouseRentsInput
+  connect?: Prisma.HostWhereUniqueInput
+}
+
+export type HostUpdateOneRequiredWithoutHouseRentsNestedInput = {
+  create?: Prisma.XOR<Prisma.HostCreateWithoutHouseRentsInput, Prisma.HostUncheckedCreateWithoutHouseRentsInput>
+  connectOrCreate?: Prisma.HostCreateOrConnectWithoutHouseRentsInput
+  upsert?: Prisma.HostUpsertWithoutHouseRentsInput
+  connect?: Prisma.HostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.HostUpdateToOneWithWhereWithoutHouseRentsInput, Prisma.HostUpdateWithoutHouseRentsInput>, Prisma.HostUncheckedUpdateWithoutHouseRentsInput>
+}
+
 export type HostCreateWithoutUserInput = {
   id?: string
   email?: string | null
@@ -744,6 +778,7 @@ export type HostCreateWithoutUserInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  houseRents?: Prisma.HouseRentCreateNestedManyWithoutOwnerInput
 }
 
 export type HostUncheckedCreateWithoutUserInput = {
@@ -766,6 +801,7 @@ export type HostUncheckedCreateWithoutUserInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  houseRents?: Prisma.HouseRentUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type HostCreateOrConnectWithoutUserInput = {
@@ -804,6 +840,7 @@ export type HostUpdateWithoutUserInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  houseRents?: Prisma.HouseRentUpdateManyWithoutOwnerNestedInput
 }
 
 export type HostUncheckedUpdateWithoutUserInput = {
@@ -826,8 +863,146 @@ export type HostUncheckedUpdateWithoutUserInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  houseRents?: Prisma.HouseRentUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
+export type HostCreateWithoutHouseRentsInput = {
+  id?: string
+  email?: string | null
+  name?: string | null
+  profilePhoto?: string | null
+  contactNumber?: string | null
+  address?: string | null
+  gender?: string | null
+  dateOfBirth?: Date | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rating?: number | null
+  verified?: boolean
+  joinedAt?: Date | string
+  lastActiveAt?: Date | string | null
+  bookingCount?: number
+  favoriteServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: string | null
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutHostInput
+}
+
+export type HostUncheckedCreateWithoutHouseRentsInput = {
+  id?: string
+  userId: string
+  email?: string | null
+  name?: string | null
+  profilePhoto?: string | null
+  contactNumber?: string | null
+  address?: string | null
+  gender?: string | null
+  dateOfBirth?: Date | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rating?: number | null
+  verified?: boolean
+  joinedAt?: Date | string
+  lastActiveAt?: Date | string | null
+  bookingCount?: number
+  favoriteServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: string | null
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type HostCreateOrConnectWithoutHouseRentsInput = {
+  where: Prisma.HostWhereUniqueInput
+  create: Prisma.XOR<Prisma.HostCreateWithoutHouseRentsInput, Prisma.HostUncheckedCreateWithoutHouseRentsInput>
+}
+
+export type HostUpsertWithoutHouseRentsInput = {
+  update: Prisma.XOR<Prisma.HostUpdateWithoutHouseRentsInput, Prisma.HostUncheckedUpdateWithoutHouseRentsInput>
+  create: Prisma.XOR<Prisma.HostCreateWithoutHouseRentsInput, Prisma.HostUncheckedCreateWithoutHouseRentsInput>
+  where?: Prisma.HostWhereInput
+}
+
+export type HostUpdateToOneWithWhereWithoutHouseRentsInput = {
+  where?: Prisma.HostWhereInput
+  data: Prisma.XOR<Prisma.HostUpdateWithoutHouseRentsInput, Prisma.HostUncheckedUpdateWithoutHouseRentsInput>
+}
+
+export type HostUpdateWithoutHouseRentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  favoriteServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutHostNestedInput
+}
+
+export type HostUncheckedUpdateWithoutHouseRentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  bookingCount?: Prisma.IntFieldUpdateOperationsInput | number
+  favoriteServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type HostCountOutputType
+ */
+
+export type HostCountOutputType = {
+  houseRents: number
+}
+
+export type HostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  houseRents?: boolean | HostCountOutputTypeCountHouseRentsArgs
+}
+
+/**
+ * HostCountOutputType without action
+ */
+export type HostCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HostCountOutputType
+   */
+  select?: Prisma.HostCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * HostCountOutputType without action
+ */
+export type HostCountOutputTypeCountHouseRentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HouseRentWhereInput
+}
 
 
 export type HostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -851,7 +1026,9 @@ export type HostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  houseRents?: boolean | Prisma.Host$houseRentsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.HostCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["host"]>
 
 export type HostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -927,7 +1104,9 @@ export type HostSelectScalar = {
 
 export type HostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "email" | "name" | "profilePhoto" | "contactNumber" | "address" | "gender" | "dateOfBirth" | "preferences" | "rating" | "verified" | "joinedAt" | "lastActiveAt" | "bookingCount" | "favoriteServices" | "notes" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["host"]>
 export type HostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  houseRents?: boolean | Prisma.Host$houseRentsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.HostCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type HostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -939,6 +1118,7 @@ export type HostIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $HostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Host"
   objects: {
+    houseRents: Prisma.$HouseRentPayload<ExtArgs>[]
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1356,6 +1536,7 @@ readonly fields: HostFieldRefs;
  */
 export interface Prisma__HostClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  houseRents<T extends Prisma.Host$houseRentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Host$houseRentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HouseRentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1799,6 +1980,30 @@ export type HostDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Hosts to delete.
    */
   limit?: number
+}
+
+/**
+ * Host.houseRents
+ */
+export type Host$houseRentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HouseRent
+   */
+  select?: Prisma.HouseRentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HouseRent
+   */
+  omit?: Prisma.HouseRentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HouseRentInclude<ExtArgs> | null
+  where?: Prisma.HouseRentWhereInput
+  orderBy?: Prisma.HouseRentOrderByWithRelationInput | Prisma.HouseRentOrderByWithRelationInput[]
+  cursor?: Prisma.HouseRentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HouseRentScalarFieldEnum | Prisma.HouseRentScalarFieldEnum[]
 }
 
 /**
