@@ -73,6 +73,11 @@ export default [
       'no-unused-vars': 'warn',
       'no-var': 'error',
       'prefer-const': 'error',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
     },
   },
 ];

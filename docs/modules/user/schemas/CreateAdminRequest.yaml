@@ -1,0 +1,24 @@
+type: object
+required:
+  - name
+  - password
+  - contactNumber
+properties:
+  name:
+    type: string
+    example: 'Hasan Khan'
+  email:
+    type: string
+    format: email
+    example: 'admin@example.com'
+  contactNumber:
+    type: string
+    example: '+8801777000000'
+  profilePhoto:
+    type: string
+    format: uri
+    example: 'https://example.com/profile-photo.jpg'
+  password:
+    type: string
+    format: password
+    example: 'StrongP@ss123'

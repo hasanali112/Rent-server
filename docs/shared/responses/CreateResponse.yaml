@@ -1,0 +1,14 @@
+type: object
+properties:
+  statusCode:
+    type: integer
+    example: 201
+  success:
+    type: boolean
+    example: true
+  message:
+    type: string
+    example: 'Admin created successfully'
+  data:
+    type: object
+    description: Created resource data

@@ -1,22 +1,19 @@
-
-enum UserRole{
+enum UserRole {
     ADMIN
     SUPER_ADMIN
-    HOUSEOWNER
-    MESSOWER
-    CATERINGOWNER
+    HOST
     DOCTOR
-    PATIENT
+    CUSTOMER
 }
 
-enum UserStatus{
+enum UserStatus {
     PENDING
     ACTIVE
     INACTIVE
     BLOCKED
 }
 
-enum Gender{
+enum Gender {
     MALE
     FEMALE
     OTHER

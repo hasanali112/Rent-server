@@ -1,0 +1,45 @@
+login:
+  post:
+    tags:
+      - Authentication
+    summary: User login
+    description: Authenticate user and return access token
+    responses:
+      '200':
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              $ref: '../../shared/responses/ApiResponse.yaml'
+
+register:
+  post:
+    tags:
+      - Authentication
+    summary: User registration
+    description: Register a new user account (HOST or CUSTOMER role)
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RegisterRequest'
+    responses:
+      '201':
+        description: Registration successful
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterResponse'
+      '400':
+        description: Invalid request payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiResponse'
+      '409':
+        description: Email or contact number already exists
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiResponse'

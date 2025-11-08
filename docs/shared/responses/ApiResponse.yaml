@@ -1,0 +1,17 @@
+type: object
+properties:
+  success:
+    type: boolean
+    example: false
+  message:
+    type: string
+    example: 'Error message'
+  errorMessages:
+    type: array
+    items:
+      type: object
+      properties:
+        path:
+          type: string
+        message:
+          type: string

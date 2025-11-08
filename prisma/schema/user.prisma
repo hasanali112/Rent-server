@@ -1,8 +1,8 @@
 model User {
   id                 String     @id @default(uuid())
-  email              String     @unique
-  contactNumber      String     @unique
-  password           String
+  email              String?    @unique
+  contactNumber      String?    @unique
+  password           String?
   role               UserRole
   needPasswordChange Boolean    @default(true)
   status             UserStatus @default(ACTIVE)
@@ -10,7 +10,8 @@ model User {
   updatedAt          DateTime   @updatedAt
   admin              Admin?
   doctor             Doctor?
-  patient            Patient?
+  cutomer            Customer?
+  host               Host?
 
   @@map("users")
 }
@@ -18,54 +19,92 @@ model User {
 model Admin {
   id            String   @id @default(uuid())
   name          String
-  email         String   @unique
+  email         String?  @unique
+  userId        String   @unique
   profilePhoto  String?
-  contactNumber String
+  contactNumber String?
   isDeleted     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  user User @relation(fields: [email], references: [email])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("admins")
 }
 
 model Doctor {
-  id                  String              @id @default(uuid())
+  id                  String   @id @default(uuid())
   name                String
-  email               String              @unique
+  email               String   @unique
   profilePhoto        String?
   contactNumber       String
   address             String?
   registrationNumber  String
-  experience          Int                 @default(0)
+  experience          Int      @default(0)
   gender              Gender
   appointmentFee      Int
   qualification       String
   currentWorkingPlace String
   designation         String
-  isDeleted           Boolean             @default(false)
-  averageRating       Float               @default(0.0)
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  user                User                @relation(fields: [email], references: [email])
-
+  isDeleted           Boolean  @default(false)
+  averageRating       Float    @default(0.0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [email], references: [email])
 
   @@map("doctors")
 }
 
-model Patient {
-  id                String   @id @unique @default(uuid())
-  email             String   @unique
-  name              String
-  profilePhoto      String?
-  contactNumber     String?
-  address           String?
-  isDeleted         Boolean  @default(false)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User               @relation(references: [email], fields: [email])
-  
+model Host {
+  id               String    @id @default(uuid())
+  userId           String    @unique
+  email            String?   @unique
+  name             String
+  profilePhoto     String?
+  contactNumber    String?
+  address          String?
+  gender           String?
+  dateOfBirth      DateTime?
+  preferences      Json?
+  rating           Float?
+  verified         Boolean   @default(false)
+  joinedAt         DateTime  @default(now())
+  lastActiveAt     DateTime?
+  bookingCount     Int       @default(0)
+  favoriteServices Json?
+  notes            String?
+  isDeleted        Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  @@map("patients")
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("hosts")
+}
+
+model Customer {
+  id               String    @id @default(uuid())
+  userId           String    @unique
+  email            String?   @unique
+  name             String
+  profilePhoto     String?
+  contactNumber    String?
+  address          String?
+  gender           String?
+  dateOfBirth      DateTime?
+  preferences      Json?
+  rating           Float?
+  verified         Boolean   @default(false)
+  joinedAt         DateTime  @default(now())
+  lastActiveAt     DateTime?
+  bookingCount     Int       @default(0)
+  favoriteServices Json?
+  notes            String?
+  isDeleted        Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("customers")
 }

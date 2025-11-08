@@ -1,0 +1,29 @@
+type: object
+required:
+  - name
+  - contactNumber
+  - password
+  - role
+properties:
+  name:
+    type: string
+    example: 'John Doe'
+  email:
+    type: string
+    format: email
+    example: 'john@example.com'
+  contactNumber:
+    type: string
+    example: '+8801777000000'
+  profilePhoto:
+    type: string
+    format: uri
+    example: 'https://example.com/profile-photo.jpg'
+  password:
+    type: string
+    format: password
+    example: 'StrongP@ss123'
+  role:
+    type: string
+    enum: ['HOST', 'CUSTOMER']
+    example: 'HOST'
