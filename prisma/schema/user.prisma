@@ -59,7 +59,7 @@ model Host {
   id               String    @id @default(uuid())
   userId           String    @unique
   email            String?   @unique
-  name             String
+  name             String?
   profilePhoto     String?
   contactNumber    String?
   address          String?
@@ -86,7 +86,7 @@ model Customer {
   id               String    @id @default(uuid())
   userId           String    @unique
   email            String?   @unique
-  name             String
+  name             String?
   profilePhoto     String?
   contactNumber    String?
   address          String?

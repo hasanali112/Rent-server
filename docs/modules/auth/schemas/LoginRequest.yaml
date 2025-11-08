@@ -1,0 +1,31 @@
+type: object
+properties:
+  email:
+    type: string
+    format: email
+    example: 'user@example.com'
+  contactNumber:
+    type: string
+    example: '+8801777000000'
+  password:
+    type: string
+    format: password
+    example: 'password123'
+  provider:
+    type: string
+    enum: ['google']
+    example: 'google'
+  name:
+    type: string
+    example: 'John Doe'
+  profilePhoto:
+    type: string
+    format: uri
+    example: 'https://example.com/photo.jpg'
+oneOf:
+  - title: "Email/Password Login"
+    required: ['email', 'password']
+  - title: "Phone/Password Login"
+    required: ['contactNumber', 'password']
+  - title: "Google OAuth Login"
+    required: ['provider', 'name']

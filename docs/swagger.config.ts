@@ -101,4 +101,18 @@ if (apiResponse) {
   baseConfig.components.schemas.ApiResponse = apiResponse;
 }
 
+const loginRequest = loadYamlFile(
+  path.join(__dirname, 'modules/auth/schemas/LoginRequest.yaml'),
+);
+if (loginRequest) {
+  baseConfig.components.schemas.LoginRequest = loginRequest;
+}
+
+const loginResponse = loadYamlFile(
+  path.join(__dirname, 'modules/auth/schemas/LoginResponse.yaml'),
+);
+if (loginResponse) {
+  baseConfig.components.schemas.LoginResponse = loginResponse;
+}
+
 export default baseConfig;

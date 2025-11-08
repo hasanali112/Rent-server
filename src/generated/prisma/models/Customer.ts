@@ -269,7 +269,7 @@ export type CustomerGroupByOutputType = {
   id: string
   userId: string
   email: string | null
-  name: string
+  name: string | null
   profilePhoto: string | null
   contactNumber: string | null
   address: string | null
@@ -315,7 +315,7 @@ export type CustomerWhereInput = {
   id?: Prisma.StringFilter<"Customer"> | string
   userId?: Prisma.StringFilter<"Customer"> | string
   email?: Prisma.StringNullableFilter<"Customer"> | string | null
-  name?: Prisma.StringFilter<"Customer"> | string
+  name?: Prisma.StringNullableFilter<"Customer"> | string | null
   profilePhoto?: Prisma.StringNullableFilter<"Customer"> | string | null
   contactNumber?: Prisma.StringNullableFilter<"Customer"> | string | null
   address?: Prisma.StringNullableFilter<"Customer"> | string | null
@@ -339,7 +339,7 @@ export type CustomerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  name?: Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -366,7 +366,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CustomerWhereInput | Prisma.CustomerWhereInput[]
   OR?: Prisma.CustomerWhereInput[]
   NOT?: Prisma.CustomerWhereInput | Prisma.CustomerWhereInput[]
-  name?: Prisma.StringFilter<"Customer"> | string
+  name?: Prisma.StringNullableFilter<"Customer"> | string | null
   profilePhoto?: Prisma.StringNullableFilter<"Customer"> | string | null
   contactNumber?: Prisma.StringNullableFilter<"Customer"> | string | null
   address?: Prisma.StringNullableFilter<"Customer"> | string | null
@@ -390,7 +390,7 @@ export type CustomerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  name?: Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -421,7 +421,7 @@ export type CustomerScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Customer"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Customer"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
-  name?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  name?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   profilePhoto?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   contactNumber?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
@@ -443,7 +443,7 @@ export type CustomerScalarWhereWithAggregatesInput = {
 export type CustomerCreateInput = {
   id?: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -467,7 +467,7 @@ export type CustomerUncheckedCreateInput = {
   id?: string
   userId: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -489,7 +489,7 @@ export type CustomerUncheckedCreateInput = {
 export type CustomerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -513,7 +513,7 @@ export type CustomerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -536,7 +536,7 @@ export type CustomerCreateManyInput = {
   id?: string
   userId: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -558,7 +558,7 @@ export type CustomerCreateManyInput = {
 export type CustomerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -581,7 +581,7 @@ export type CustomerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -715,7 +715,7 @@ export type CustomerUncheckedUpdateOneWithoutUserNestedInput = {
 export type CustomerCreateWithoutUserInput = {
   id?: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -737,7 +737,7 @@ export type CustomerCreateWithoutUserInput = {
 export type CustomerUncheckedCreateWithoutUserInput = {
   id?: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -775,7 +775,7 @@ export type CustomerUpdateToOneWithWhereWithoutUserInput = {
 export type CustomerUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -797,7 +797,7 @@ export type CustomerUpdateWithoutUserInput = {
 export type CustomerUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -933,7 +933,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     userId: string
     email: string | null
-    name: string
+    name: string | null
     profilePhoto: string | null
     contactNumber: string | null
     address: string | null

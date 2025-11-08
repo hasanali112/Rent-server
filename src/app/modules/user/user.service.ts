@@ -68,7 +68,7 @@ const resgisterUser = async (payload: TUser) => {
         },
       });
     } else {
-      await transactionClient.admin.create({
+      await transactionClient.customer.create({
         data: {
           ...cutomerData,
           userId: createdUser.id,

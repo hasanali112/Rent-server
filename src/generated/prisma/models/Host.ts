@@ -269,7 +269,7 @@ export type HostGroupByOutputType = {
   id: string
   userId: string
   email: string | null
-  name: string
+  name: string | null
   profilePhoto: string | null
   contactNumber: string | null
   address: string | null
@@ -315,7 +315,7 @@ export type HostWhereInput = {
   id?: Prisma.StringFilter<"Host"> | string
   userId?: Prisma.StringFilter<"Host"> | string
   email?: Prisma.StringNullableFilter<"Host"> | string | null
-  name?: Prisma.StringFilter<"Host"> | string
+  name?: Prisma.StringNullableFilter<"Host"> | string | null
   profilePhoto?: Prisma.StringNullableFilter<"Host"> | string | null
   contactNumber?: Prisma.StringNullableFilter<"Host"> | string | null
   address?: Prisma.StringNullableFilter<"Host"> | string | null
@@ -339,7 +339,7 @@ export type HostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  name?: Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -366,7 +366,7 @@ export type HostWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.HostWhereInput | Prisma.HostWhereInput[]
   OR?: Prisma.HostWhereInput[]
   NOT?: Prisma.HostWhereInput | Prisma.HostWhereInput[]
-  name?: Prisma.StringFilter<"Host"> | string
+  name?: Prisma.StringNullableFilter<"Host"> | string | null
   profilePhoto?: Prisma.StringNullableFilter<"Host"> | string | null
   contactNumber?: Prisma.StringNullableFilter<"Host"> | string | null
   address?: Prisma.StringNullableFilter<"Host"> | string | null
@@ -390,7 +390,7 @@ export type HostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  name?: Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -421,7 +421,7 @@ export type HostScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Host"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Host"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Host"> | string | null
-  name?: Prisma.StringWithAggregatesFilter<"Host"> | string
+  name?: Prisma.StringNullableWithAggregatesFilter<"Host"> | string | null
   profilePhoto?: Prisma.StringNullableWithAggregatesFilter<"Host"> | string | null
   contactNumber?: Prisma.StringNullableWithAggregatesFilter<"Host"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Host"> | string | null
@@ -443,7 +443,7 @@ export type HostScalarWhereWithAggregatesInput = {
 export type HostCreateInput = {
   id?: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -467,7 +467,7 @@ export type HostUncheckedCreateInput = {
   id?: string
   userId: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -489,7 +489,7 @@ export type HostUncheckedCreateInput = {
 export type HostUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -513,7 +513,7 @@ export type HostUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -536,7 +536,7 @@ export type HostCreateManyInput = {
   id?: string
   userId: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -558,7 +558,7 @@ export type HostCreateManyInput = {
 export type HostUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -581,7 +581,7 @@ export type HostUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -727,7 +727,7 @@ export type NullableFloatFieldUpdateOperationsInput = {
 export type HostCreateWithoutUserInput = {
   id?: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -749,7 +749,7 @@ export type HostCreateWithoutUserInput = {
 export type HostUncheckedCreateWithoutUserInput = {
   id?: string
   email?: string | null
-  name: string
+  name?: string | null
   profilePhoto?: string | null
   contactNumber?: string | null
   address?: string | null
@@ -787,7 +787,7 @@ export type HostUpdateToOneWithWhereWithoutUserInput = {
 export type HostUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -809,7 +809,7 @@ export type HostUpdateWithoutUserInput = {
 export type HostUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -945,7 +945,7 @@ export type $HostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     userId: string
     email: string | null
-    name: string
+    name: string | null
     profilePhoto: string | null
     contactNumber: string | null
     address: string | null

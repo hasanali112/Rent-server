@@ -3,14 +3,32 @@ login:
     tags:
       - Authentication
     summary: User login
-    description: Authenticate user and return access token
+    description: Authenticate user with email/phone and password, or Google OAuth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginRequest'
     responses:
       '200':
         description: Login successful
         content:
           application/json:
             schema:
-              $ref: '../../shared/responses/ApiResponse.yaml'
+              $ref: '#/components/schemas/LoginResponse'
+      '400':
+        description: Invalid credentials or missing password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiResponse'
+      '404':
+        description: User not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiResponse'
 
 register:
   post:
