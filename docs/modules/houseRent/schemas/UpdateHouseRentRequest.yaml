@@ -1,0 +1,85 @@
+type: object
+properties:
+  title:
+    type: string
+    description: Title of the house rent
+    example: "Updated Beautiful 3BHK Apartment"
+  description:
+    type: string
+    description: Detailed description
+    example: "Updated spacious apartment with modern amenities"
+  price:
+    type: number
+    description: Monthly rent price
+    example: 30000
+  propertyType:
+    type: string
+    enum: [Apartment, House, Studio, Duplex, Penthouse]
+    description: Type of property
+    example: "House"
+  bedrooms:
+    type: integer
+    description: Number of bedrooms
+    example: 4
+  bathrooms:
+    type: integer
+    description: Number of bathrooms
+    example: 3
+  size:
+    type: number
+    description: Size in square feet
+    example: 1500.0
+  floor:
+    type: string
+    description: Floor number
+    example: "Ground"
+  totalFloors:
+    type: integer
+    description: Total floors in building
+    example: 2
+  furnishing:
+    type: string
+    enum: [Furnished, Semi_Furnished, Unfurnished]
+    description: Furnishing status
+    example: "Semi_Furnished"
+  availableFrom:
+    type: string
+    format: date-time
+    description: Available from date
+    example: "2024-02-01T00:00:00Z"
+  address:
+    type: string
+    description: Full address
+    example: "456 Updated Street"
+  area:
+    type: string
+    description: Area name
+    example: "Dhanmondi"
+  city:
+    type: string
+    description: City name
+    example: "Dhaka"
+  division:
+    type: string
+    description: Division name
+    example: "Dhaka"
+  lat:
+    type: number
+    description: Latitude coordinate
+    example: 23.7461
+  lng:
+    type: number
+    description: Longitude coordinate
+    example: 90.3742
+  categoryId:
+    type: string
+    description: Category ID reference
+    example: "uuid-updated-category-id"
+  ownerId:
+    type: string
+    description: Owner ID reference
+    example: "uuid-updated-owner-id"
+  isAvailable:
+    type: boolean
+    description: Availability status
+    example: false

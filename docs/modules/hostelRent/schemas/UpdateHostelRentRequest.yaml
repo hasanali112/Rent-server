@@ -1,0 +1,97 @@
+type: object
+properties:
+  title:
+    type: string
+    description: Title of the hostel rent
+    example: "Updated Student Hostel"
+  description:
+    type: string
+    description: Detailed description
+    example: "Updated clean and safe hostel for students"
+  price:
+    type: number
+    description: Rent price
+    example: 9000
+  currency:
+    type: string
+    description: Currency code
+    example: "BDT"
+  type:
+    type: string
+    enum: [Mess, Hostel]
+    description: Rent type
+    example: "Mess"
+  gender:
+    type: string
+    enum: [MALE, FEMALE, OTHER]
+    description: Gender preference
+    example: "OTHER"
+  tenantType:
+    type: string
+    enum: [Student, Job_Holder, Both]
+    description: Tenant type preference
+    example: "Both"
+  roomType:
+    type: string
+    enum: [Single, Shared_2_person, Shared_3_4_person]
+    description: Room type
+    example: "Single"
+  mealOptions:
+    type: string
+    enum: [Included, Not_Included, Optional]
+    description: Meal availability
+    example: "Optional"
+  mealsPerDay:
+    type: integer
+    description: Number of meals per day
+    example: 2
+  mealTiming:
+    type: array
+    items:
+      type: string
+    description: Meal timing schedule
+    example: ["Breakfast 8:30 AM", "Dinner 8:30 PM"]
+  floor:
+    type: string
+    description: Floor number
+    example: "3rd"
+  totalFloors:
+    type: integer
+    description: Total floors in building
+    example: 5
+  address:
+    type: string
+    description: Full address
+    example: "456 Updated Road"
+  area:
+    type: string
+    description: Area name
+    example: "Dhanmondi"
+  city:
+    type: string
+    description: City name
+    example: "Dhaka"
+  division:
+    type: string
+    description: Division name
+    example: "Dhaka"
+  lat:
+    type: number
+    description: Latitude coordinate
+    example: 23.7461
+  lng:
+    type: number
+    description: Longitude coordinate
+    example: 90.3742
+  categoryId:
+    type: string
+    description: Category ID reference
+    example: "uuid-updated-category-id"
+  ownerId:
+    type: string
+    description: Owner ID reference
+    example: "uuid-updated-owner-id"
+  isAvailable:
+    type: boolean
+    description: Availability status
+    example: false

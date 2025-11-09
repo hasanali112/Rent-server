@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { UserRole } from '../../../generated/prisma/enums';
+
 import config from '../../config';
 import { JWTHelper } from '../../utils/JwtHelper';
 import prisma from '../../utils/prisma';
 import { TLogin } from './auth.interface';
 import { Hashing } from '../../utils/hashing';
+import { UserRole } from '../../../../prisma/generated/enums';
 
 function removeUndefined<T extends object>(obj: T): Partial<T> {
   return Object.fromEntries(

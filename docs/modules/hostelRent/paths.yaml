@@ -1,0 +1,112 @@
+create-hostel-rent:
+  post:
+    tags:
+      - Hostel Rent Management
+    summary: Create a new hostel rent
+    description: Creates a new hostel rent listing
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateHostelRentRequest'
+    responses:
+      '201':
+        description: Hostel rent created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '400':
+        description: Invalid request data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+
+get-all-hostel-rent:
+  get:
+    tags:
+      - Hostel Rent Management
+    summary: Get all hostel rents
+    description: Retrieve paginated list of hostel rents
+    parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+        description: Page number
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 10
+        description: Items per page
+    responses:
+      '200':
+        description: Hostel rents retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllResponse'
+
+update-hostel-rent:
+  patch:
+    tags:
+      - Hostel Rent Management
+    summary: Update hostel rent
+    description: Update hostel rent by ID with partial data
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Hostel rent ID
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateHostelRentRequest'
+    responses:
+      '200':
+        description: Hostel rent updated successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '404':
+        description: Hostel rent not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+
+delete-hostel-rent:
+  delete:
+    tags:
+      - Hostel Rent Management
+    summary: Delete hostel rent
+    description: Delete hostel rent by ID
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Hostel rent ID
+    responses:
+      '200':
+        description: Hostel rent deleted successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '404':
+        description: Hostel rent not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'

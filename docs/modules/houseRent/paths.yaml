@@ -1,0 +1,112 @@
+create-house-rent:
+  post:
+    tags:
+      - House Rent Management
+    summary: Create a new house rent
+    description: Creates a new house rent listing
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateHouseRentRequest'
+    responses:
+      '201':
+        description: House rent created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '400':
+        description: Invalid request data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+
+get-all-house-rent:
+  get:
+    tags:
+      - House Rent Management
+    summary: Get all house rents
+    description: Retrieve paginated list of house rents
+    parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+        description: Page number
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 10
+        description: Items per page
+    responses:
+      '200':
+        description: House rents retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllResponse'
+
+update-house-rent:
+  patch:
+    tags:
+      - House Rent Management
+    summary: Update house rent
+    description: Update house rent by ID with partial data
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: House rent ID
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateHouseRentRequest'
+    responses:
+      '200':
+        description: House rent updated successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '404':
+        description: House rent not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+
+delete-house-rent:
+  delete:
+    tags:
+      - House Rent Management
+    summary: Delete house rent
+    description: Delete house rent by ID
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: House rent ID
+    responses:
+      '200':
+        description: House rent deleted successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '404':
+        description: House rent not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'

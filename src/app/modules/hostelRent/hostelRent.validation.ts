@@ -1,0 +1,55 @@
+import z from 'zod';
+
+const createHostelRentValidation = z.object({
+  title: z.string({ message: 'Title is required' }),
+  description: z.string({ message: 'Description is required' }),
+  price: z.number({ message: 'Price is required' }),
+  currency: z.string({ message: 'Currency is required' }),
+  type: z.enum(['Mess', 'Hostel']),
+  gender: z.enum(['MALE', 'FEMALE', 'OTHER']),
+  tenantType: z.enum(['Student', 'Job_Holder', 'Both']),
+  roomType: z.enum(['Single', 'Shared_2_person', 'Shared_3_4_person']),
+  mealOptions: z.enum(['Included', 'Not_Included', 'Optional']),
+  mealsPerDay: z.number().optional(),
+  mealTiming: z.array(z.string()),
+  floor: z.string({ message: 'Floor is required' }),
+  totalFloors: z.number({ message: 'Total floors is required' }),
+  address: z.string({ message: 'Address is required' }),
+  area: z.string({ message: 'Area is required' }),
+  city: z.string({ message: 'City is required' }),
+  division: z.string({ message: 'Division is required' }),
+  lat: z.number({ message: 'Latitude is required' }),
+  lng: z.number({ message: 'Longitude is required' }),
+  categoryId: z.string({ message: 'Category ID is required' }),
+  ownerId: z.string({ message: 'Owner ID is required' }),
+});
+
+const updateHostelRentValidation = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  price: z.number().optional(),
+  currency: z.string().optional(),
+  type: z.enum(['Mess', 'Hostel']).optional(),
+  gender: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
+  tenantType: z.enum(['Student', 'Job_Holder', 'Both']).optional(),
+  roomType: z.enum(['Single', 'Shared_2_person', 'Shared_3_4_person']).optional(),
+  mealOptions: z.enum(['Included', 'Not_Included', 'Optional']).optional(),
+  mealsPerDay: z.number().optional(),
+  mealTiming: z.array(z.string()).optional(),
+  floor: z.string().optional(),
+  totalFloors: z.number().optional(),
+  address: z.string().optional(),
+  area: z.string().optional(),
+  city: z.string().optional(),
+  division: z.string().optional(),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
+  categoryId: z.string().optional(),
+  ownerId: z.string().optional(),
+  isAvailable: z.boolean().optional(),
+});
+
+export const HostelRentValidation = {
+  createHostelRentValidation,
+  updateHostelRentValidation,
+};

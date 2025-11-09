@@ -1,0 +1,99 @@
+create-category:
+  post:
+    tags:
+      - Category Management
+    summary: Create a new category
+    description: Creates a new category with name and image
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCategoryRequest'
+    responses:
+      '201':
+        description: Category created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '409':
+        description: Category already exists
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+
+get-all-category:
+  get:
+    tags:
+      - Category Management
+    summary: Get all categories
+    description: Retrieve all categories
+    responses:
+      '200':
+        description: Categories retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllResponse'
+
+update-category:
+  patch:
+    tags:
+      - Category Management
+    summary: Update category
+    description: Update category by ID with partial data
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Category ID
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCategoryRequest'
+    responses:
+      '200':
+        description: Category updated successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '404':
+        description: Category not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
+
+delete-category:
+  delete:
+    tags:
+      - Category Management
+    summary: Delete category
+    description: Delete category by ID
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Category ID
+    responses:
+      '200':
+        description: Category deleted successfully
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResponse'
+      '404':
+        description: Category not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'

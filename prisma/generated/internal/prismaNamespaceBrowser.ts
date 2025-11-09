@@ -51,10 +51,13 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 export const ModelName = {
   User: 'User',
   Admin: 'Admin',
+  Doctor: 'Doctor',
   Host: 'Host',
   Customer: 'Customer',
   Category: 'Category',
-  HouseRent: 'HouseRent'
+  HouseRent: 'HouseRent',
+  HostelRent: 'HostelRent',
+  Blog: 'Blog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -101,6 +104,29 @@ export const AdminScalarFieldEnum = {
 } as const
 
 export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+export const DoctorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  profilePhoto: 'profilePhoto',
+  contactNumber: 'contactNumber',
+  address: 'address',
+  registrationNumber: 'registrationNumber',
+  experience: 'experience',
+  gender: 'gender',
+  appointmentFee: 'appointmentFee',
+  qualification: 'qualification',
+  currentWorkingPlace: 'currentWorkingPlace',
+  designation: 'designation',
+  isDeleted: 'isDeleted',
+  averageRating: 'averageRating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DoctorScalarFieldEnum = (typeof DoctorScalarFieldEnum)[keyof typeof DoctorScalarFieldEnum]
 
 
 export const HostScalarFieldEnum = {
@@ -169,25 +195,77 @@ export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typ
 
 export const HouseRentScalarFieldEnum = {
   id: 'id',
-  houseName: 'houseName',
-  houseImages: 'houseImages',
-  location: 'location',
+  title: 'title',
   description: 'description',
   price: 'price',
-  contactNumber: 'contactNumber',
-  bedCount: 'bedCount',
-  bathCount: 'bathCount',
-  areaInSqft: 'areaInSqft',
-  furnishingType: 'furnishingType',
+  propertyType: 'propertyType',
+  bedrooms: 'bedrooms',
+  bathrooms: 'bathrooms',
+  size: 'size',
+  floor: 'floor',
+  totalFloors: 'totalFloors',
+  furnishing: 'furnishing',
+  availableFrom: 'availableFrom',
+  address: 'address',
+  area: 'area',
+  city: 'city',
+  division: 'division',
+  lat: 'lat',
+  lng: 'lng',
   isAvailable: 'isAvailable',
+  isDeleted: 'isDeleted',
   categoryId: 'categoryId',
   ownerId: 'ownerId',
-  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type HouseRentScalarFieldEnum = (typeof HouseRentScalarFieldEnum)[keyof typeof HouseRentScalarFieldEnum]
+
+
+export const HostelRentScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  price: 'price',
+  currency: 'currency',
+  type: 'type',
+  gender: 'gender',
+  tenantType: 'tenantType',
+  roomType: 'roomType',
+  mealOptions: 'mealOptions',
+  mealsPerDay: 'mealsPerDay',
+  mealTiming: 'mealTiming',
+  floor: 'floor',
+  totalFloors: 'totalFloors',
+  address: 'address',
+  area: 'area',
+  city: 'city',
+  division: 'division',
+  lat: 'lat',
+  lng: 'lng',
+  isAvailable: 'isAvailable',
+  isDeleted: 'isDeleted',
+  categoryId: 'categoryId',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HostelRentScalarFieldEnum = (typeof HostelRentScalarFieldEnum)[keyof typeof HostelRentScalarFieldEnum]
+
+
+export const BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  blogImage: 'blogImage',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
 
 
 export const SortOrder = {

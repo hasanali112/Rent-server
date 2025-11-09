@@ -1,0 +1,101 @@
+type: object
+required:
+  - title
+  - description
+  - price
+  - propertyType
+  - bedrooms
+  - bathrooms
+  - size
+  - floor
+  - totalFloors
+  - furnishing
+  - availableFrom
+  - address
+  - area
+  - city
+  - division
+  - lat
+  - lng
+  - categoryId
+  - ownerId
+properties:
+  title:
+    type: string
+    description: Title of the house rent
+    example: "Beautiful 3BHK Apartment"
+  description:
+    type: string
+    description: Detailed description
+    example: "Spacious apartment with modern amenities"
+  price:
+    type: number
+    description: Monthly rent price
+    example: 25000
+  propertyType:
+    type: string
+    enum: [Apartment, House, Studio, Duplex, Penthouse]
+    description: Type of property
+    example: "Apartment"
+  bedrooms:
+    type: integer
+    description: Number of bedrooms
+    example: 3
+  bathrooms:
+    type: integer
+    description: Number of bathrooms
+    example: 2
+  size:
+    type: number
+    description: Size in square feet
+    example: 1200.5
+  floor:
+    type: string
+    description: Floor number
+    example: "5th"
+  totalFloors:
+    type: integer
+    description: Total floors in building
+    example: 10
+  furnishing:
+    type: string
+    enum: [Furnished, Semi_Furnished, Unfurnished]
+    description: Furnishing status
+    example: "Furnished"
+  availableFrom:
+    type: string
+    format: date-time
+    description: Available from date
+    example: "2024-01-01T00:00:00Z"
+  address:
+    type: string
+    description: Full address
+    example: "123 Main Street"
+  area:
+    type: string
+    description: Area name
+    example: "Gulshan"
+  city:
+    type: string
+    description: City name
+    example: "Dhaka"
+  division:
+    type: string
+    description: Division name
+    example: "Dhaka"
+  lat:
+    type: number
+    description: Latitude coordinate
+    example: 23.7808
+  lng:
+    type: number
+    description: Longitude coordinate
+    example: 90.2792
+  categoryId:
+    type: string
+    description: Category ID reference
+    example: "uuid-category-id"
+  ownerId:
+    type: string
+    description: Owner ID reference
+    example: "uuid-owner-id"

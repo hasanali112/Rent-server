@@ -1,19 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "./generated"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 
 model User {
   id                 String     @id @default(uuid())
@@ -49,7 +42,6 @@ model Admin {
   @@map("admins")
 }
 
-
 model Doctor {
   id                  String   @id @default(uuid())
   name                String
@@ -73,12 +65,10 @@ model Doctor {
   @@map("doctors")
 }
 
-
-
 model Host {
-  id               String      @id @default(uuid())
-  userId           String      @unique
-  email            String?     @unique
+  id               String       @id @default(uuid())
+  userId           String       @unique
+  email            String?      @unique
   name             String?
   profilePhoto     String?
   contactNumber    String?
@@ -87,17 +77,18 @@ model Host {
   dateOfBirth      DateTime?
   preferences      Json?
   rating           Float?
-  verified         Boolean     @default(false)
-  joinedAt         DateTime    @default(now())
+  verified         Boolean      @default(false)
+  joinedAt         DateTime     @default(now())
   lastActiveAt     DateTime?
-  bookingCount     Int         @default(0)
+  bookingCount     Int          @default(0)
   favoriteServices Json?
   notes            String?
-  isDeleted        Boolean     @default(false)
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
+  isDeleted        Boolean      @default(false)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
   houseRents       HouseRent[]
-  user             User        @relation(fields: [userId], references: [id])
+  hostelRents      HostelRent[]
+  user             User         @relation(fields: [userId], references: [id])
 
   @@map("hosts")
 }
@@ -130,39 +121,93 @@ model Customer {
 }
 
 model Category {
-  id            String      @id @default(uuid())
+  id            String       @id @default(uuid())
   categoryName  String
   categoryImage String
-  isDeleted     Boolean     @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  isDeleted     Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
   houseRents    HouseRent[]
+  hostelRents   HostelRent[]
 
   @@map("categories")
 }
 
 model HouseRent {
-  id             String         @id @default(uuid())
-  houseName      String
-  houseImages    String[]
-  location       String
-  description    String
-  price          Int
-  contactNumber  String
-  bedCount       Int
-  bathCount      Int
-  areaInSqft     Int
-  furnishingType FurnishingType
-  isAvailable    Boolean        @default(true)
-  categoryId     String
-  category       Category       @relation(fields: [categoryId], references: [id])
-  ownerId        String
-  owner          Host           @relation(fields: [ownerId], references: [id])
-  isDeleted      Boolean        @default(false)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id            String       @id @default(uuid())
+  title         String
+  description   String
+  price         Float
+  propertyType  PropertyType
+  bedrooms      Int
+  bathrooms     Int
+  size          Float
+  floor         String
+  totalFloors   Int
+  furnishing    Furnishing
+  availableFrom DateTime
+  address       String
+  area          String
+  city          String
+  division      String
+  lat           Float
+  lng           Float
+  isAvailable   Boolean      @default(true)
+  isDeleted     Boolean      @default(false)
+  categoryId    String
+  category      Category     @relation(fields: [categoryId], references: [id])
+  ownerId       String
+  owner         Host         @relation(fields: [ownerId], references: [id])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 
   @@map("houseRents")
+}
+
+model HostelRent {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  price       Float
+  currency    String
+  type        RentType
+  gender      Gender
+  tenantType  TenantType
+  roomType    RoomType
+  mealOptions MealOption
+  mealsPerDay Int?
+  mealTiming  String[]
+  floor       String
+  totalFloors Int
+  address     String
+  area        String
+  city        String
+  division    String
+  lat         Float
+  lng         Float
+  isAvailable Boolean    @default(true)
+  isDeleted   Boolean    @default(false)
+  categoryId  String
+  category    Category   @relation(fields: [categoryId], references: [id])
+  ownerId     String
+  owner       Host       @relation(fields: [ownerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("hostelRents")
+}
+
+model Blog {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  blogImage   String
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("blogs")
 }
 
 enum UserRole {
@@ -186,20 +231,39 @@ enum Gender {
   OTHER
 }
 
-enum FurnishingType {
-  FURNISHED
-  SEMI_FURNISHED
-  UNFURNISHED
+enum PropertyType {
+  Apartment
+  House
+  Studio
+  Duplex
+  Penthouse
 }
 
-enum Facility {
-  AC
-  WIFI
-  MEALS_INCLUDED
-  LAUNDRY
-  PARKING
-  WATER_FILTER
-  STUDY_ROOM
+enum Furnishing {
+  Furnished
+  Semi_Furnished
+  Unfurnished
 }
 
+enum RentType {
+  Mess
+  Hostel
+}
 
+enum TenantType {
+  Student
+  Job_Holder
+  Both
+}
+
+enum RoomType {
+  Single
+  Shared_2_person
+  Shared_3_4_person
+}
+
+enum MealOption {
+  Included
+  Not_Included
+  Optional
+}

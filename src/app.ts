@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { type Application } from 'express';
 import cors from 'cors';
+import path from 'path';
 import { notFoundRoutes } from './app/middleware/notFoundRoutes';
 import globalErrorHandler from './app/middleware/globalErrorHandler';
 import middlewareRouter from './app/routes';
@@ -16,11 +15,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
+// Serve swagger-ui static files
 app.use(
-  '/docs',
-  swaggerUi.serve as any,
-  swaggerUi.setup(swaggerDocument) as any,
+  '/swagger-ui',
+  express.static(path.join(__dirname, '../node_modules/swagger-ui-dist')),
 );
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/v1', middlewareRouter);
 

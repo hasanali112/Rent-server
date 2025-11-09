@@ -1,0 +1,20 @@
+type: object
+properties:
+  success:
+    type: boolean
+    example: false
+  message:
+    type: string
+    example: "Category already exist"
+  error:
+    type: object
+    properties:
+      name:
+        type: string
+        example: "Error"
+      message:
+        type: string
+        example: "Category already exist"
+      stack:
+        type: string
+        example: "Error: Category already exist\n    at /home/hasan/My Project/Rent Services/easysearch-server/src/app/modules/category/category.service.ts:14:11"

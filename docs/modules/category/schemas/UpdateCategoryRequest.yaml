@@ -1,0 +1,10 @@
+type: object
+properties:
+  categoryName:
+    type: string
+    description: Name of the category
+    example: "Updated Apartments"
+  categoryImage:
+    type: string
+    description: URL or path to category image
+    example: "https://example.com/updated-apartment.jpg"

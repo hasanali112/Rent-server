@@ -10,8 +10,11 @@
  */
 export type * from './models/User'
 export type * from './models/Admin'
+export type * from './models/Doctor'
 export type * from './models/Host'
 export type * from './models/Customer'
 export type * from './models/Category'
 export type * from './models/HouseRent'
+export type * from './models/HostelRent'
+export type * from './models/Blog'
 export type * from './commonInputTypes'

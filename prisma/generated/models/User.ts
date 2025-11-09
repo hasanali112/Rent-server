@@ -217,6 +217,7 @@ export type UserWhereInput = {
   admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   cutomer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
   host?: Prisma.XOR<Prisma.HostNullableScalarRelationFilter, Prisma.HostWhereInput> | null
+  doctor?: Prisma.XOR<Prisma.DoctorNullableScalarRelationFilter, Prisma.DoctorWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -232,6 +233,7 @@ export type UserOrderByWithRelationInput = {
   admin?: Prisma.AdminOrderByWithRelationInput
   cutomer?: Prisma.CustomerOrderByWithRelationInput
   host?: Prisma.HostOrderByWithRelationInput
+  doctor?: Prisma.DoctorOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -250,6 +252,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.AdminWhereInput> | null
   cutomer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
   host?: Prisma.XOR<Prisma.HostNullableScalarRelationFilter, Prisma.HostWhereInput> | null
+  doctor?: Prisma.XOR<Prisma.DoctorNullableScalarRelationFilter, Prisma.DoctorWhereInput> | null
 }, "id" | "email" | "contactNumber">
 
 export type UserOrderByWithAggregationInput = {
@@ -295,6 +298,7 @@ export type UserCreateInput = {
   admin?: Prisma.AdminCreateNestedOneWithoutUserInput
   cutomer?: Prisma.CustomerCreateNestedOneWithoutUserInput
   host?: Prisma.HostCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -310,6 +314,7 @@ export type UserUncheckedCreateInput = {
   admin?: Prisma.AdminUncheckedCreateNestedOneWithoutUserInput
   cutomer?: Prisma.CustomerUncheckedCreateNestedOneWithoutUserInput
   host?: Prisma.HostUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -325,6 +330,7 @@ export type UserUpdateInput = {
   admin?: Prisma.AdminUpdateOneWithoutUserNestedInput
   cutomer?: Prisma.CustomerUpdateOneWithoutUserNestedInput
   host?: Prisma.HostUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -340,6 +346,7 @@ export type UserUncheckedUpdateInput = {
   admin?: Prisma.AdminUncheckedUpdateOneWithoutUserNestedInput
   cutomer?: Prisma.CustomerUncheckedUpdateOneWithoutUserNestedInput
   host?: Prisma.HostUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -457,6 +464,20 @@ export type UserUpdateOneRequiredWithoutAdminNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdminInput, Prisma.UserUpdateWithoutAdminInput>, Prisma.UserUncheckedUpdateWithoutAdminInput>
 }
 
+export type UserCreateNestedOneWithoutDoctorInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDoctorInput, Prisma.UserUncheckedCreateWithoutDoctorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDoctorInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDoctorNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDoctorInput, Prisma.UserUncheckedCreateWithoutDoctorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDoctorInput
+  upsert?: Prisma.UserUpsertWithoutDoctorInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDoctorInput, Prisma.UserUpdateWithoutDoctorInput>, Prisma.UserUncheckedUpdateWithoutDoctorInput>
+}
+
 export type UserCreateNestedOneWithoutHostInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutHostInput, Prisma.UserUncheckedCreateWithoutHostInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutHostInput
@@ -497,6 +518,7 @@ export type UserCreateWithoutAdminInput = {
   updatedAt?: Date | string
   cutomer?: Prisma.CustomerCreateNestedOneWithoutUserInput
   host?: Prisma.HostCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAdminInput = {
@@ -511,6 +533,7 @@ export type UserUncheckedCreateWithoutAdminInput = {
   updatedAt?: Date | string
   cutomer?: Prisma.CustomerUncheckedCreateNestedOneWithoutUserInput
   host?: Prisma.HostUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAdminInput = {
@@ -541,6 +564,7 @@ export type UserUpdateWithoutAdminInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cutomer?: Prisma.CustomerUpdateOneWithoutUserNestedInput
   host?: Prisma.HostUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdminInput = {
@@ -553,6 +577,83 @@ export type UserUncheckedUpdateWithoutAdminInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cutomer?: Prisma.CustomerUncheckedUpdateOneWithoutUserNestedInput
+  host?: Prisma.HostUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDoctorInput = {
+  id?: string
+  email?: string | null
+  contactNumber?: string | null
+  password?: string | null
+  role: $Enums.UserRole
+  needPasswordChange?: boolean
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  admin?: Prisma.AdminCreateNestedOneWithoutUserInput
+  cutomer?: Prisma.CustomerCreateNestedOneWithoutUserInput
+  host?: Prisma.HostCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDoctorInput = {
+  id?: string
+  email?: string | null
+  contactNumber?: string | null
+  password?: string | null
+  role: $Enums.UserRole
+  needPasswordChange?: boolean
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  admin?: Prisma.AdminUncheckedCreateNestedOneWithoutUserInput
+  cutomer?: Prisma.CustomerUncheckedCreateNestedOneWithoutUserInput
+  host?: Prisma.HostUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDoctorInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDoctorInput, Prisma.UserUncheckedCreateWithoutDoctorInput>
+}
+
+export type UserUpsertWithoutDoctorInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDoctorInput, Prisma.UserUncheckedUpdateWithoutDoctorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDoctorInput, Prisma.UserUncheckedCreateWithoutDoctorInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDoctorInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDoctorInput, Prisma.UserUncheckedUpdateWithoutDoctorInput>
+}
+
+export type UserUpdateWithoutDoctorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  needPasswordChange?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin?: Prisma.AdminUpdateOneWithoutUserNestedInput
+  cutomer?: Prisma.CustomerUpdateOneWithoutUserNestedInput
+  host?: Prisma.HostUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDoctorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  needPasswordChange?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin?: Prisma.AdminUncheckedUpdateOneWithoutUserNestedInput
   cutomer?: Prisma.CustomerUncheckedUpdateOneWithoutUserNestedInput
   host?: Prisma.HostUncheckedUpdateOneWithoutUserNestedInput
 }
@@ -569,6 +670,7 @@ export type UserCreateWithoutHostInput = {
   updatedAt?: Date | string
   admin?: Prisma.AdminCreateNestedOneWithoutUserInput
   cutomer?: Prisma.CustomerCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutHostInput = {
@@ -583,6 +685,7 @@ export type UserUncheckedCreateWithoutHostInput = {
   updatedAt?: Date | string
   admin?: Prisma.AdminUncheckedCreateNestedOneWithoutUserInput
   cutomer?: Prisma.CustomerUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutHostInput = {
@@ -613,6 +716,7 @@ export type UserUpdateWithoutHostInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   admin?: Prisma.AdminUpdateOneWithoutUserNestedInput
   cutomer?: Prisma.CustomerUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutHostInput = {
@@ -627,6 +731,7 @@ export type UserUncheckedUpdateWithoutHostInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   admin?: Prisma.AdminUncheckedUpdateOneWithoutUserNestedInput
   cutomer?: Prisma.CustomerUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCutomerInput = {
@@ -641,6 +746,7 @@ export type UserCreateWithoutCutomerInput = {
   updatedAt?: Date | string
   admin?: Prisma.AdminCreateNestedOneWithoutUserInput
   host?: Prisma.HostCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCutomerInput = {
@@ -655,6 +761,7 @@ export type UserUncheckedCreateWithoutCutomerInput = {
   updatedAt?: Date | string
   admin?: Prisma.AdminUncheckedCreateNestedOneWithoutUserInput
   host?: Prisma.HostUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCutomerInput = {
@@ -685,6 +792,7 @@ export type UserUpdateWithoutCutomerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   admin?: Prisma.AdminUpdateOneWithoutUserNestedInput
   host?: Prisma.HostUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCutomerInput = {
@@ -699,6 +807,7 @@ export type UserUncheckedUpdateWithoutCutomerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   admin?: Prisma.AdminUncheckedUpdateOneWithoutUserNestedInput
   host?: Prisma.HostUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -716,6 +825,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   admin?: boolean | Prisma.User$adminArgs<ExtArgs>
   cutomer?: boolean | Prisma.User$cutomerArgs<ExtArgs>
   host?: boolean | Prisma.User$hostArgs<ExtArgs>
+  doctor?: boolean | Prisma.User$doctorArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -759,6 +869,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   admin?: boolean | Prisma.User$adminArgs<ExtArgs>
   cutomer?: boolean | Prisma.User$cutomerArgs<ExtArgs>
   host?: boolean | Prisma.User$hostArgs<ExtArgs>
+  doctor?: boolean | Prisma.User$doctorArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -769,6 +880,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     admin: Prisma.$AdminPayload<ExtArgs> | null
     cutomer: Prisma.$CustomerPayload<ExtArgs> | null
     host: Prisma.$HostPayload<ExtArgs> | null
+    doctor: Prisma.$DoctorPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1177,6 +1289,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   admin<T extends Prisma.User$adminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adminArgs<ExtArgs>>): Prisma.Prisma__AdminClient<runtime.Types.Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   cutomer<T extends Prisma.User$cutomerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cutomerArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   host<T extends Prisma.User$hostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$hostArgs<ExtArgs>>): Prisma.Prisma__HostClient<runtime.Types.Result.GetResult<Prisma.$HostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  doctor<T extends Prisma.User$doctorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$doctorArgs<ExtArgs>>): Prisma.Prisma__DoctorClient<runtime.Types.Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1657,6 +1770,25 @@ export type User$hostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
    */
   include?: Prisma.HostInclude<ExtArgs> | null
   where?: Prisma.HostWhereInput
+}
+
+/**
+ * User.doctor
+ */
+export type User$doctorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Doctor
+   */
+  select?: Prisma.DoctorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Doctor
+   */
+  omit?: Prisma.DoctorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DoctorInclude<ExtArgs> | null
+  where?: Prisma.DoctorWhereInput
 }
 
 /**

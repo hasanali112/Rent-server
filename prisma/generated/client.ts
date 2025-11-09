@@ -40,7 +40,7 @@ export { Prisma }
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node")
-path.join(process.cwd(), "src/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node")
+path.join(process.cwd(), "prisma/generated/libquery_engine-rhel-openssl-3.0.x.so.node")
 
 /**
  * Model User
@@ -52,6 +52,11 @@ export type User = Prisma.UserModel
  * 
  */
 export type Admin = Prisma.AdminModel
+/**
+ * Model Doctor
+ * 
+ */
+export type Doctor = Prisma.DoctorModel
 /**
  * Model Host
  * 
@@ -72,3 +77,13 @@ export type Category = Prisma.CategoryModel
  * 
  */
 export type HouseRent = Prisma.HouseRentModel
+/**
+ * Model HostelRent
+ * 
+ */
+export type HostelRent = Prisma.HostelRentModel
+/**
+ * Model Blog
+ * 
+ */
+export type Blog = Prisma.BlogModel
