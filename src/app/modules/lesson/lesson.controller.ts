@@ -30,6 +30,11 @@ const addLesson = createController({
       },
     },
     responses: { 201: { description: 'Lesson created successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const { courseId, ...lessonData } = req.body;
@@ -70,6 +75,11 @@ const updateLesson = createController({
       },
     },
     responses: { 200: { description: 'Lesson updated successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await LessonService.updateLesson(req.params.id, req.body);
@@ -92,6 +102,11 @@ const deleteLesson = createController({
       { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
     ],
     responses: { 200: { description: 'Lesson deleted successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     await LessonService.deleteLesson(req.params.id);
@@ -136,6 +151,11 @@ const reorderLessons = createController({
       },
     },
     responses: { 200: { description: 'Lessons reordered successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     await LessonService.reorderLessons(req.params.courseId, req.body);
@@ -163,6 +183,11 @@ const getLessonsByCourse = createController({
       },
     ],
     responses: { 200: { description: 'Lessons retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await LessonService.getLessonsByCourse(req.params.courseId);

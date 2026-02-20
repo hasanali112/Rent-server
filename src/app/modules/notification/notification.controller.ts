@@ -10,6 +10,11 @@ const getMyNotifications = createController({
     tags: ['Notifications'],
     summary: 'Get notifications for current user',
     responses: { 200: { description: 'Notifications retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await NotificationService.getMyNotifications(req.user.id);
@@ -29,6 +34,11 @@ const markAsRead = createController({
     tags: ['Notifications'],
     summary: 'Mark a notification as read',
     responses: { 200: { description: 'Notification marked as read' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await NotificationService.markAsRead(req.params.id);

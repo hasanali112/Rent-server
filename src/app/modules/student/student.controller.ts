@@ -32,6 +32,11 @@ const markLessonComplete = createController({
       },
     },
     responses: { 200: { description: 'Lesson marked as complete' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const { lessonId } = req.params;
@@ -65,6 +70,11 @@ const getCourseContent = createController({
       },
     ],
     responses: { 200: { description: 'Content retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const { courseId } = req.params;

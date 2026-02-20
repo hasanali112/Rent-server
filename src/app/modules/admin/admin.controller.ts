@@ -14,6 +14,11 @@ const getGlobalAnalytics = createController({
     responses: {
       200: { description: 'Analytics retrieved successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AdminService.getGlobalAnalytics();
@@ -62,6 +67,11 @@ const overrideCourseStatus = createController({
     responses: {
       200: { description: 'Course status overridden successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const { id } = req.params;
@@ -103,6 +113,11 @@ const updatePlatformConfig = createController({
     responses: {
       200: { description: 'Platform configuration updated successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AdminService.updatePlatformConfig(req.body);
@@ -126,6 +141,11 @@ const getOperationalAnalytics = createController({
     responses: {
       200: { description: 'Operational analytics retrieved successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AdminService.getOperationalAnalytics();
@@ -149,6 +169,11 @@ const getAllCourses = createController({
     responses: {
       200: { description: 'Courses retrieved successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AdminService.getAllCourses();

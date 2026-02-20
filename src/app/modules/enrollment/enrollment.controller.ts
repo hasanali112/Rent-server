@@ -24,6 +24,11 @@ const enrollInCourse = createController({
       },
     },
     responses: { 201: { description: 'Enrolled successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const { courseId } = req.body;
@@ -47,6 +52,11 @@ const getMyEnrolledCourses = createController({
     tags: ['Enrollment Management'],
     summary: 'Get all courses I am enrolled in',
     responses: { 200: { description: 'Courses retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await EnrollmentService.getMyEnrolledCourses(req.user.id);
@@ -69,6 +79,11 @@ const dropCourse = createController({
       { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
     ],
     responses: { 200: { description: 'Course dropped successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await EnrollmentService.dropCourse(req.params.id);
@@ -91,6 +106,11 @@ const completeCourse = createController({
       { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
     ],
     responses: { 200: { description: 'Course marked as completed' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await EnrollmentService.completeCourse(req.params.id);

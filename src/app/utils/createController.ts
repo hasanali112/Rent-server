@@ -20,6 +20,7 @@ interface TControllerConfig {
     requestBody?: any;
     parameters?: any[];
     responses: Record<number, { description: string; content?: any }>;
+    security?: any[];
   };
 }
 

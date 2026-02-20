@@ -11,6 +11,11 @@ const getSystemOverview = createController({
     summary:
       'Get system wide overview analytics (Total courses, active students, enrollment growth)',
     responses: { 200: { description: 'Analytics retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AnalyticsService.getSystemOverview();
@@ -30,6 +35,11 @@ const getRevenuePerCourse = createController({
     tags: ['Analytics'],
     summary: 'Get revenue per course',
     responses: { 200: { description: 'Revenue data retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AnalyticsService.getRevenuePerCourse();
@@ -51,6 +61,11 @@ const getInstructorPerformance = createController({
     responses: {
       200: { description: 'Performance data retrieved successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AnalyticsService.getInstructorPerformance();
@@ -70,6 +85,11 @@ const getOperationalStats = createController({
     tags: ['Analytics'],
     summary: 'Get operational stats including popular courses',
     responses: { 200: { description: 'Stats retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await AnalyticsService.getOperationalStats();

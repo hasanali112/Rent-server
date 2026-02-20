@@ -48,6 +48,11 @@ const createCourse = createController({
       },
     },
     responses: { 201: { description: 'Course created successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await CourseService.createCourse(req.user.id, req.body);
@@ -67,6 +72,11 @@ const getMyCourses = createController({
     tags: ['Course Management'],
     summary: 'Get instructor specific courses',
     responses: { 200: { description: 'Courses retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await CourseService.getMyCourses(req.user.id);
@@ -109,6 +119,11 @@ const updateCourse = createController({
       },
     },
     responses: { 200: { description: 'Course updated successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await CourseService.updateCourse(req.params.id, req.body);
@@ -131,6 +146,11 @@ const deleteCourse = createController({
       { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
     ],
     responses: { 200: { description: 'Course deleted successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     await CourseService.deleteCourse(req.params.id);
@@ -150,6 +170,11 @@ const getInstructorAnalytics = createController({
     tags: ['Course Management'],
     summary: 'Get instructor analytics',
     responses: { 200: { description: 'Analytics retrieved successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await CourseService.getInstructorAnalytics(req.user.id);
@@ -188,6 +213,11 @@ const updateCourseStatus = createController({
       },
     },
     responses: { 200: { description: 'Course status updated successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await CourseService.updateCourseStatus(

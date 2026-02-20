@@ -1,54 +1,48 @@
 import prisma from '../../utils/prisma';
 
 const getGlobalAnalytics = async () => {
-  const totalUsers = await prisma.user.count();
-  const totalEnrollments = await prisma.enrollment.count();
-  const payments = await prisma.payment.findMany({
-    where: { status: 'SUCCESS' },
-    select: { amount: true },
-  });
-
-  const totalRevenue = payments.reduce(
-    (acc, curr) => acc + Number(curr.amount),
-    0,
-  );
+  const [totalUsers, totalEnrollments, revenueResult] = await Promise.all([
+    prisma.user.count(),
+    prisma.enrollment.count(),
+    prisma.payment.aggregate({
+      where: { status: 'SUCCESS' },
+      _sum: { amount: true },
+    }),
+  ]);
 
   return {
     totalUsers,
     totalEnrollments,
-    totalRevenue,
+    totalRevenue: Number(revenueResult._sum.amount) || 0,
   };
 };
 
 const getOperationalAnalytics = async () => {
-  const totalEnrollments = await prisma.enrollment.count();
-  const popularCourses = await prisma.course.findMany({
-    take: 5,
-    orderBy: {
-      enrollments: {
-        _count: 'desc',
-      },
-    },
-    include: {
-      _count: {
-        select: { enrollments: true },
-      },
-    },
-  });
-
-  const completionStats = await prisma.enrollment.groupBy({
-    by: ['status'],
-    _count: true,
-  });
-
-  const payments = await prisma.payment.findMany({
-    where: { status: 'SUCCESS' },
-    select: { amount: true },
-  });
-  const totalRevenue = payments.reduce(
-    (acc, curr) => acc + Number(curr.amount),
-    0,
-  );
+  const [totalEnrollments, popularCourses, completionStats, revenueResult] =
+    await Promise.all([
+      prisma.enrollment.count(),
+      prisma.course.findMany({
+        take: 5,
+        orderBy: {
+          enrollments: {
+            _count: 'desc',
+          },
+        },
+        include: {
+          _count: {
+            select: { enrollments: true },
+          },
+        },
+      }),
+      prisma.enrollment.groupBy({
+        by: ['status'],
+        _count: true,
+      }),
+      prisma.payment.aggregate({
+        where: { status: 'SUCCESS' },
+        _sum: { amount: true },
+      }),
+    ]);
 
   return {
     totalEnrollments,
@@ -59,44 +53,48 @@ const getOperationalAnalytics = async () => {
     })),
     completionStats,
     revenueSummary: {
-      totalRevenue,
+      totalRevenue: Number(revenueResult._sum.amount) || 0,
     },
   };
 };
 
 const getInstructorAnalytics = async (instructorId: string) => {
-  const courses = await prisma.course.findMany({
-    where: { instructorId },
-    include: {
-      enrollments: {
-        include: {
-          payments: {
-            where: { status: 'SUCCESS' },
-          },
+  const [totalRevenueResult, counts] = await Promise.all([
+    prisma.payment.aggregate({
+      where: {
+        course: { instructorId },
+        status: 'SUCCESS',
+      },
+      _sum: { amount: true },
+    }),
+    prisma.course.findMany({
+      where: { instructorId },
+      select: {
+        id: true,
+        _count: {
+          select: { enrollments: true },
+        },
+        enrollments: {
+          where: { status: 'COMPLETED' },
+          select: { id: true },
         },
       },
-    },
-  });
+    }),
+  ]);
 
-  let totalRevenue = 0;
   let totalEnrollments = 0;
   let completions = 0;
 
-  courses.forEach(course => {
-    totalEnrollments += course.enrollments.length;
-    course.enrollments.forEach(enrol => {
-      if (enrol.status === 'COMPLETED') completions++;
-      enrol.payments.forEach(payment => {
-        totalRevenue += Number(payment.amount);
-      });
-    });
+  counts.forEach(course => {
+    totalEnrollments += course._count.enrollments;
+    completions += course.enrollments.length;
   });
 
   return {
-    totalRevenue,
+    totalRevenue: Number(totalRevenueResult._sum.amount) || 0,
     totalEnrollments,
     completions,
-    courseCount: courses.length,
+    courseCount: counts.length,
   };
 };
 
@@ -162,18 +160,20 @@ const getRevenuePerCourse = async () => {
 const getInstructorPerformance = async () => {
   const instructors = await prisma.user.findMany({
     where: { role: 'INSTRUCTOR' },
-    include: {
+    select: {
+      id: true,
+      email: true,
       courses: {
-        include: {
+        select: {
+          id: true,
           _count: {
             select: {
               enrollments: true,
             },
           },
           enrollments: {
-            select: {
-              status: true,
-            },
+            where: { status: 'COMPLETED' },
+            select: { id: true },
           },
         },
       },
@@ -186,9 +186,7 @@ const getInstructorPerformance = async () => {
 
     instructor.courses.forEach(course => {
       totalEnrollments += course._count.enrollments;
-      totalCompletions += course.enrollments.filter(
-        e => e.status === 'COMPLETED',
-      ).length;
+      totalCompletions += course.enrollments.length;
     });
 
     return {

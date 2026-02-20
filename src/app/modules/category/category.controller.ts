@@ -25,6 +25,11 @@ const createCategory = createController({
       },
     },
     responses: { 201: { description: 'Category created successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await CategoryService.createCategory(req.body);
@@ -79,6 +84,11 @@ const updateCategory = createController({
       },
     },
     responses: { 200: { description: 'Category updated successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await CategoryService.updateCategory(
@@ -104,6 +114,11 @@ const deleteCategory = createController({
       { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
     ],
     responses: { 200: { description: 'Category deleted successfully' } },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     await CategoryService.deleteCategory(req.params.id);

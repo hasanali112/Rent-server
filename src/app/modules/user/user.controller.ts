@@ -164,6 +164,11 @@ const CreateUserIntoDB = createController({
         },
       },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const payload: TUser = req.body;
@@ -378,6 +383,11 @@ const suspendUser = createController({
     responses: {
       200: { description: 'User status updated successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const { id } = req.params;
@@ -406,6 +416,11 @@ const getAllUsers = createController({
     responses: {
       200: { description: 'Users retrieved successfully' },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   handler: async (req, res) => {
     const result = await UserService.getAllUsers();
