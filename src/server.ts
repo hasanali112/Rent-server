@@ -4,6 +4,8 @@ import type { Server } from 'http';
 import app from './app';
 import config from './app/config';
 
+import { SocketUtils } from './app/utils/socket';
+
 const PORT = process.env.PORT || config.PORT;
 
 let server: Server;
@@ -14,6 +16,9 @@ function main() {
       console.log(`LMS Server running on port http://localhost:${PORT}`);
       console.log(`Swagger Docs available at http://localhost:${PORT}/docs`);
     });
+
+    // Initialize Socket.io
+    SocketUtils.init(server);
   } catch (error) {
     console.log(error);
   }

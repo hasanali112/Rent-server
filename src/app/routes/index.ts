@@ -6,6 +6,10 @@ import { CategoryRouter } from '../modules/category';
 import { CourseRouter } from '../modules/course';
 import { LessonRouter } from '../modules/lesson';
 import { InstructorRouter } from '../modules/user';
+import { EnrollmentRouter } from '../modules/enrollment';
+import { StudentRouter } from '../modules/student';
+import { AnalyticsRouter } from '../modules/analytics';
+import { NotificationRouter } from '../modules/notification/notification.routes';
 
 const middlewareRouter = Router();
 
@@ -37,6 +41,22 @@ const Routes = [
   {
     path: '/instructor',
     router: InstructorRouter,
+  },
+  {
+    path: '/enrollment',
+    router: EnrollmentRouter,
+  },
+  {
+    path: '/student',
+    router: StudentRouter,
+  },
+  {
+    path: '/analytics',
+    router: AnalyticsRouter,
+  },
+  {
+    path: '/notifications',
+    router: NotificationRouter,
   },
 ];
 

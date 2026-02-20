@@ -4,8 +4,24 @@ const create = async (data: any) => {
   return await prisma.course.create({ data });
 };
 
-const findAll = async () => {
-  return await prisma.course.findMany({
+const findAll = async (options: {
+  searchTerm?: string;
+  filter?: any;
+  sort?: { field: string; order: 'asc' | 'desc' };
+  pagination?: { cursor?: string; take?: number };
+}) => {
+  const { searchTerm, filter, sort, pagination } = options;
+  const where: any = { ...filter };
+
+  if (searchTerm) {
+    where.OR = [
+      { title: { contains: searchTerm, mode: 'insensitive' } },
+      { description: { contains: searchTerm, mode: 'insensitive' } },
+    ];
+  }
+
+  const queryArgs: any = {
+    where,
     include: {
       category: true,
       instructor: {
@@ -13,12 +29,19 @@ const findAll = async () => {
           id: true,
           email: true,
           contactNumber: true,
-          role: true,
-          status: true,
         },
       },
     },
-  });
+    orderBy: sort ? { [sort.field]: sort.order } : { createdAt: 'desc' },
+    take: pagination?.take || 10,
+  };
+
+  if (pagination?.cursor) {
+    queryArgs.cursor = { id: pagination.cursor };
+    queryArgs.skip = 1; // Skip the cursor itself
+  }
+
+  return await prisma.course.findMany(queryArgs);
 };
 
 const findById = async (id: string) => {
@@ -27,6 +50,9 @@ const findById = async (id: string) => {
     include: {
       category: true,
       instructor: true,
+      lessons: {
+        orderBy: { order: 'asc' },
+      },
     },
   });
 };
@@ -51,7 +77,10 @@ const update = async (id: string, data: any) => {
 };
 
 const deleteById = async (id: string) => {
-  return await prisma.course.delete({ where: { id } });
+  return await prisma.course.update({
+    where: { id },
+    data: { deletedAt: new Date() },
+  });
 };
 
 export const CourseRepository = {

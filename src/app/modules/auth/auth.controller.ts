@@ -190,6 +190,30 @@ const login = createController({
   },
 });
 
+const logout = createController({
+  path: '/api/v1/auth/logout',
+  method: 'post',
+  doc: {
+    tags: ['Authentication'],
+    summary: 'User logout',
+    responses: {
+      200: {
+        description: 'Logout successful',
+      },
+    },
+  },
+  handler: async (req, res) => {
+    res.clearCookie('UserSeassionID');
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Logged out successfully',
+      data: null,
+    });
+  },
+});
+
 export const AuthController = {
   login,
+  logout,
 };

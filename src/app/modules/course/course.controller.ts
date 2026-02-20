@@ -1,7 +1,26 @@
 import { createController } from '../../utils/createController';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
-import { CourseService } from './index';
+import { CourseService } from './course.service';
+
+const getAllCourses = createController({
+  path: '/api/v1/courses',
+  method: 'get',
+  doc: {
+    tags: ['Course Management'],
+    summary: 'Get all courses with search, filtering, and pagination',
+    responses: { 200: { description: 'Courses retrieved successfully' } },
+  },
+  handler: async (req, res) => {
+    const result = await CourseService.getAllCourses(req.query);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Courses retrieved successfully',
+      data: result,
+    });
+  },
+});
 
 const createCourse = createController({
   path: '/api/v1/courses',
@@ -143,10 +162,53 @@ const getInstructorAnalytics = createController({
   },
 });
 
+const updateCourseStatus = createController({
+  path: '/api/v1/courses/:id/status',
+  method: 'patch',
+  doc: {
+    tags: ['Course Management'],
+    summary: 'Update course status',
+    parameters: [
+      { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
+    ],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            required: ['status'],
+            properties: {
+              status: {
+                type: 'string',
+                enum: ['DRAFT', 'PUBLISHED', 'ARCHIVED'],
+              },
+            },
+          },
+        },
+      },
+    },
+    responses: { 200: { description: 'Course status updated successfully' } },
+  },
+  handler: async (req, res) => {
+    const result = await CourseService.updateCourseStatus(
+      req.params.id,
+      req.body.status,
+    );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Course status updated successfully',
+      data: result,
+    });
+  },
+});
+
 export const CourseController = {
   createCourse,
+  getAllCourses,
   getMyCourses,
   updateCourse,
+  updateCourseStatus,
   deleteCourse,
   getInstructorAnalytics,
 };

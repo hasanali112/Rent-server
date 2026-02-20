@@ -3,15 +3,18 @@ import { LessonController } from './lesson.controller';
 import auth from '../../middleware/auth';
 import ownership from '../../middleware/ownership';
 import { UserRole } from '@prisma/client';
+import validationData from '../../utils/validationData';
+import {
+  CreateLessonValidationSchema,
+  UpdateLessonValidationSchema,
+} from './dto/lesson.dto';
 
 const router = Router();
 
 router.post(
   '/',
-  auth(UserRole.INSTRUCTOR),
-  // Note: We need a specialized ownership check for "addLesson" since courseId is in body
-  // For simplicity here, we assume the controller handles the link or we add a custom check if needed
-  // But per existing plan, let's keep it consistent
+  auth(UserRole.INSTRUCTOR, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  validationData(CreateLessonValidationSchema),
   LessonController.addLesson,
 );
 
@@ -28,19 +31,22 @@ router.get(
 
 router.patch(
   '/reorder/:courseId',
-  auth(UserRole.INSTRUCTOR),
-  ownership('course', 'instructorId', 'courseId'), // Custom ownership to check courseId param
+  auth(UserRole.INSTRUCTOR, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  ownership('course', 'instructorId', 'courseId'),
   LessonController.reorderLessons,
 );
 
 router.patch(
   '/:id',
-  auth(UserRole.INSTRUCTOR),
-  // We'd need to check if the lesson belongs to a course owned by the instructor
-  // ownership utility might need expansion to handle "lesson" resource
+  auth(UserRole.INSTRUCTOR, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  validationData(UpdateLessonValidationSchema),
   LessonController.updateLesson,
 );
 
-router.delete('/:id', auth(UserRole.INSTRUCTOR), LessonController.deleteLesson);
+router.delete(
+  '/:id',
+  auth(UserRole.INSTRUCTOR, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  LessonController.deleteLesson,
+);
 
 export const LessonRouter = router;

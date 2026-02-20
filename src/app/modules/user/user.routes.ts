@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { UserController } from './user.controller';
 import validationData from '../../utils/validationData';
-import { UserValidation } from './user.validation';
+import { CreateAdminValidationSchema } from './dto/create-admin.dto';
+import { CreateUserValidationSchema } from './dto/create-user.dto';
 import auth from '../../middleware/auth';
 import { UserRole } from '@prisma/client';
 
@@ -10,13 +11,13 @@ const router = Router();
 router.post(
   '/create-admin',
   auth(UserRole.SUPER_ADMIN),
-  validationData(UserValidation.AdminSchemaValidation),
+  validationData(CreateAdminValidationSchema),
   UserController.CreateUserIntoDB,
 );
 
 router.post(
   '/register',
-  validationData(UserValidation.UserSchemaValidation),
+  validationData(CreateUserValidationSchema),
   UserController.registration,
 );
 

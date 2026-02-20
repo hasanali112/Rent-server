@@ -11,6 +11,15 @@ import { HealthController } from './app/modules/health/health.controller';
 import swaggerDocument from './swagger.config';
 
 import logger from './app/middleware/logger';
+import rateLimit from 'express-rate-limit';
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  standardHeaders: 'draft-7', // set `RateLimit` and `RateLimit-Policy` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  message: 'Too many requests from this IP, please try again after 15 minutes',
+});
 
 const app: Application = express();
 
@@ -18,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(logger);
+app.use(limiter);
 
 // Serve swagger-ui static files
 app.use(
