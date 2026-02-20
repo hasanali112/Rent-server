@@ -1,3 +1,4 @@
+import { UserRole } from '@prisma/client';
 import prisma from '../../utils/prisma';
 
 type FindUserInput = {
@@ -8,7 +9,7 @@ type FindUserInput = {
 type UserCreateData = {
   email?: string;
   contactNumber?: string;
-  role: string;
+  role: UserRole;
 };
 
 type CustomerCreateData = {

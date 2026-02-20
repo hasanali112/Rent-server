@@ -18,7 +18,7 @@ const getOperationalAnalytics = async () => {
 };
 
 const getAllCourses = async () => {
-  return await CourseRepository.findAll();
+  return await CourseRepository.findAll({});
 };
 
 export const AdminService = {

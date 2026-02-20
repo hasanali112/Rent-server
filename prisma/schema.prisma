@@ -9,8 +9,10 @@ datasource db {
 
 model User {
   id                 String     @id @default(uuid())
+  name               String?
   email              String?    @unique
   contactNumber      String?    @unique
+  profilePhoto       String?
   password           String?
   role               UserRole
   needPasswordChange Boolean    @default(true)
@@ -24,8 +26,24 @@ model User {
   payments         Payment[]
   reviews          Review[]
   notifications    Notification[]
+  customer         Customer?
 
   @@map("users")
+}
+
+model Customer {
+  id            String   @id @default(uuid())
+  name          String?
+  email         String?  @unique
+  contactNumber String?  @unique
+  profilePhoto  String?
+  userId        String?  @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("customers")
 }
 
 model Category {
