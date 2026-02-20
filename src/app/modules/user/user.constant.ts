@@ -1,9 +1,8 @@
 export const UserRole = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',
-  DOCTOR: 'DOCTOR',
-  PATIENT: 'PATIENT',
-  HOST: 'HOST',
-  CUSTOMER: 'CUSTOMER',
+  INSTRUCTOR: 'INSTRUCTOR',
+  STUDENT: 'STUDENT',
 } as const;
 
 export const userStatus = {

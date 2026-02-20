@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-//@ts-ignore
-import { PrismaClient } from '../../../prisma/generated/client';
+import { PrismaClient } from "@prisma/client";
+
 
 const prisma = new PrismaClient();
 

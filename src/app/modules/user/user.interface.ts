@@ -1,9 +1,4 @@
-export type TUserRole =
-  | 'ADMIN'
-  | 'SUPER_ADMIN'
-  | 'HOST'
-  | 'DOCTOR'
-  | 'CUSTOMER';
+export type TUserRole = 'ADMIN' | 'SUPER_ADMIN' | 'INSTRUCTOR' | 'STUDENT';
 
 export type TUser = {
   name: string;

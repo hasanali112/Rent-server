@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "./generated"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -18,203 +17,184 @@ model User {
   status             UserStatus @default(ACTIVE)
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
-  admin              Admin?
-  cutomer            Customer?
-  host               Host?
-  doctor             Doctor?
+
+  courses          Course[]         @relation("InstructorCourses")
+  enrollments      Enrollment[]     @relation("StudentEnrollments")
+  lessonProgresses LessonProgress[]
+  payments         Payment[]
+  reviews          Review[]
+  notifications    Notification[]
 
   @@map("users")
 }
 
-model Admin {
-  id            String   @id @default(uuid())
-  name          String
-  email         String?  @unique
-  userId        String   @unique
-  profilePhoto  String?
-  contactNumber String?
-  isDeleted     Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  @@map("admins")
-}
-
-model Doctor {
-  id                  String   @id @default(uuid())
-  name                String
-  email               String   @unique
-  profilePhoto        String?
-  contactNumber       String
-  address             String?
-  registrationNumber  String
-  experience          Int      @default(0)
-  gender              Gender
-  appointmentFee      Int
-  qualification       String
-  currentWorkingPlace String
-  designation         String
-  isDeleted           Boolean  @default(false)
-  averageRating       Float    @default(0.0)
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  user                User     @relation(fields: [email], references: [email])
-
-  @@map("doctors")
-}
-
-model Host {
-  id               String       @id @default(uuid())
-  userId           String       @unique
-  email            String?      @unique
-  name             String?
-  profilePhoto     String?
-  contactNumber    String?
-  address          String?
-  gender           String?
-  dateOfBirth      DateTime?
-  preferences      Json?
-  rating           Float?
-  verified         Boolean      @default(false)
-  joinedAt         DateTime     @default(now())
-  lastActiveAt     DateTime?
-  bookingCount     Int          @default(0)
-  favoriteServices Json?
-  notes            String?
-  isDeleted        Boolean      @default(false)
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  houseRents       HouseRent[]
-  hostelRents      HostelRent[]
-  user             User         @relation(fields: [userId], references: [id])
-
-  @@map("hosts")
-}
-
-model Customer {
-  id               String    @id @default(uuid())
-  userId           String    @unique
-  email            String?   @unique
-  name             String?
-  profilePhoto     String?
-  contactNumber    String?
-  address          String?
-  gender           String?
-  dateOfBirth      DateTime?
-  preferences      Json?
-  rating           Float?
-  verified         Boolean   @default(false)
-  joinedAt         DateTime  @default(now())
-  lastActiveAt     DateTime?
-  bookingCount     Int       @default(0)
-  favoriteServices Json?
-  notes            String?
-  isDeleted        Boolean   @default(false)
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-
-  user User @relation(fields: [userId], references: [id])
-
-  @@map("customers")
-}
-
 model Category {
-  id            String       @id @default(uuid())
-  categoryName  String
-  categoryImage String
-  isDeleted     Boolean      @default(false)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  houseRents    HouseRent[]
-  hostelRents   HostelRent[]
+  id   String @id @default(uuid())
+  name String @unique
+  slug String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courses Course[]
 
   @@map("categories")
 }
 
-model HouseRent {
-  id            String       @id @default(uuid())
-  title         String
-  description   String
-  price         Float
-  propertyType  PropertyType
-  bedrooms      Int
-  bathrooms     Int
-  size          Float
-  floor         String
-  totalFloors   Int
-  furnishing    Furnishing
-  availableFrom DateTime
-  address       String
-  area          String
-  city          String
-  division      String
-  lat           Float
-  lng           Float
-  isAvailable   Boolean      @default(true)
-  isDeleted     Boolean      @default(false)
-  categoryId    String
-  category      Category     @relation(fields: [categoryId], references: [id])
-  ownerId       String
-  owner         Host         @relation(fields: [ownerId], references: [id])
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+model Course {
+  id           String       @id @default(uuid())
+  title        String
+  description  String
+  thumbnailUrl String?
+  price        Decimal      @db.Decimal(10, 2)
+  isFree       Boolean      @default(false)
+  status       CourseStatus @default(DRAFT)
+  instructorId String
+  categoryId   String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  deletedAt    DateTime?
 
-  @@map("houseRents")
+  instructor  User         @relation("InstructorCourses", fields: [instructorId], references: [id])
+  category    Category     @relation(fields: [categoryId], references: [id])
+  lessons     Lesson[]
+  enrollments Enrollment[]
+  payments    Payment[]
+  reviews     Review[]
+
+  @@index([status])
+  @@index([categoryId])
+  @@index([instructorId])
+  @@index([deletedAt])
+  @@index([title])
+  @@map("courses")
 }
 
-model HostelRent {
-  id          String     @id @default(uuid())
+model Lesson {
+  id          String      @id @default(uuid())
   title       String
-  description String
-  price       Float
-  currency    String
-  type        RentType
-  gender      Gender
-  tenantType  TenantType
-  roomType    RoomType
-  mealOptions MealOption
-  mealsPerDay Int?
-  mealTiming  String[]
-  floor       String
-  totalFloors Int
-  address     String
-  area        String
-  city        String
-  division    String
-  lat         Float
-  lng         Float
-  isAvailable Boolean    @default(true)
-  isDeleted   Boolean    @default(false)
-  categoryId  String
-  category    Category   @relation(fields: [categoryId], references: [id])
-  ownerId     String
-  owner       Host       @relation(fields: [ownerId], references: [id])
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  contentType ContentType
+  videoUrl    String?
+  textContent String?
+  order       Int
+  isPreview   Boolean     @default(false)
 
-  @@map("hostelRents")
+  courseId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course         Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessonProgress LessonProgress[]
+
+  @@unique([courseId, order])
+  @@index([courseId])
+  @@map("lessons")
 }
 
-model Blog {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  blogImage   String
-  isDeleted   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Enrollment {
+  id String @id @default(uuid())
 
-  @@map("blogs")
+  studentId String
+  courseId  String
+
+  status   EnrollmentStatus @default(ACTIVE)
+  progress Float            @default(0)
+
+  enrolledAt  DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  completedAt DateTime?
+
+  student  User      @relation("StudentEnrollments", fields: [studentId], references: [id])
+  course   Course    @relation(fields: [courseId], references: [id])
+  payments Payment[]
+
+  @@unique([studentId, courseId])
+  @@index([courseId])
+  @@index([studentId])
+  @@index([status])
+  @@map("enrollments")
 }
 
-enum UserRole {
-  ADMIN
-  SUPER_ADMIN
-  HOST
-  DOCTOR
-  CUSTOMER
+model LessonProgress {
+  id String @id @default(uuid())
+
+  studentId String
+  lessonId  String
+
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student User   @relation(fields: [studentId], references: [id])
+  lesson  Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, lessonId])
+  @@index([studentId])
+  @@index([lessonId])
+  @@map("lesson_progresses")
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  amount        Decimal       @db.Decimal(10, 2)
+  status        PaymentStatus @default(PENDING)
+  transactionId String?
+
+  studentId    String
+  courseId     String
+  enrollmentId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student    User        @relation(fields: [studentId], references: [id])
+  course     Course      @relation(fields: [courseId], references: [id])
+  enrollment Enrollment? @relation(fields: [enrollmentId], references: [id])
+
+  @@index([studentId])
+  @@index([courseId])
+  @@index([status])
+  @@map("payments")
+}
+
+model Review {
+  id String @id @default(uuid())
+
+  rating  Int
+  comment String?
+
+  studentId String
+  courseId  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student User   @relation(fields: [studentId], references: [id])
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId])
+  @@index([courseId])
+  @@map("reviews")
+}
+
+model Notification {
+  id      String  @id @default(uuid())
+  title   String
+  message String
+  isRead  Boolean @default(false)
+
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("notifications")
 }
 
 enum UserStatus {
@@ -224,45 +204,32 @@ enum UserStatus {
   BLOCKED
 }
 
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  INSTRUCTOR
+  STUDENT
 }
 
-enum PropertyType {
-  Apartment
-  House
-  Studio
-  Duplex
-  Penthouse
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
 
-enum Furnishing {
-  Furnished
-  Semi_Furnished
-  Unfurnished
+enum ContentType {
+  VIDEO
+  TEXT
 }
 
-enum RentType {
-  Mess
-  Hostel
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  DROPPED
 }
 
-enum TenantType {
-  Student
-  Job_Holder
-  Both
-}
-
-enum RoomType {
-  Single
-  Shared_2_person
-  Shared_3_4_person
-}
-
-enum MealOption {
-  Included
-  Not_Included
-  Optional
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
 }

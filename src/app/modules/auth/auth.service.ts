@@ -3,10 +3,13 @@
 
 import config from '../../config';
 import { JWTHelper } from '../../utils/JwtHelper';
-import prisma from '../../utils/prisma';
 import { TLogin } from './auth.interface';
 import { Hashing } from '../../utils/hashing';
-import { UserRole } from '../../../../prisma/generated/enums';
+import { UserRole } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+import path from 'path';
+import { Worker } from 'worker_threads';
+import { AuthRepository } from '../../data-access/auth';
 
 function removeUndefined<T extends object>(obj: T): Partial<T> {
   return Object.fromEntries(
@@ -15,13 +18,9 @@ function removeUndefined<T extends object>(obj: T): Partial<T> {
 }
 
 const login = async (payload: TLogin) => {
-  const isUserExist = await prisma.user.findFirst({
-    where: {
-      OR: [
-        { email: payload.email ?? undefined },
-        { contactNumber: payload.contactNumber ?? undefined },
-      ],
-    },
+  const isUserExist = await AuthRepository.findUserByEmailOrContact({
+    email: payload.email,
+    contactNumber: payload.contactNumber,
   });
 
   // ✅ Google login flow
@@ -32,7 +31,7 @@ const login = async (payload: TLogin) => {
           email: payload.email,
           contactNumber: payload.contactNumber,
         }),
-        role: UserRole.CUSTOMER,
+        role: UserRole.STUDENT,
       };
 
       const customerData = removeUndefined({
@@ -42,22 +41,10 @@ const login = async (payload: TLogin) => {
         profilePhoto: payload.profilePhoto,
       });
 
-      const user = await prisma.$transaction(async tx => {
-        const createdUser = await tx.user.create({
-          data: userData,
-        });
-
-        if (Object.keys(customerData).length > 0) {
-          await tx.customer.create({
-            data: {
-              ...customerData,
-              userId: createdUser.id,
-            },
-          });
-        }
-
-        return createdUser;
-      });
+      const user = await AuthRepository.createGoogleUserWithCustomer(
+        userData,
+        customerData,
+      );
 
       const jwtPayload = {
         id: user.id,
@@ -139,6 +126,38 @@ const login = async (payload: TLogin) => {
   return { accessToken, refreshToken };
 };
 
+//password has
+// const testAuthPerformance = async () => {
+//   const password = "super-secret-password";
+//   const start = Date.now();
+
+//   // আমরা একসাথে ১০টি হ্যাশ জেনারেট করার চেষ্টা করবো
+//   const tasks = [];
+//   for (let i = 0; i < 100; i++) {
+//     tasks.push(bcrypt.hash(password, 12)); // এটি Libuv থ্রেড পুলে যায়
+//   }
+
+//   await Promise.all(tasks);
+//   console.log(`Total time for 10 hashes: ${Date.now() - start}ms`);
+// };
+
+const testAuthPerformance = async () => {
+  return new Promise((resolve, reject) => {
+    // ওয়ার্কার ফাইলটি কল করছি
+    const worker = new Worker(path.join(__dirname, 'auth.worker.ts'), {
+      workerData: { password: 'super-secret-password' },
+    });
+
+    worker.on('message', data => {
+      console.log('Hashing done in separate thread!');
+      resolve(data);
+    });
+
+    worker.on('error', reject);
+  });
+};
+
 export const AuthService = {
   login,
+  testAuthPerformance,
 };

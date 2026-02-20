@@ -1,24 +1,28 @@
 import { Router } from 'express';
 import { CategoryController } from './category.controller';
-import validationData from '../../utils/validationData';
-import { CategoryValidation } from './category.validation';
+import auth from '../../middleware/auth';
+import { UserRole } from '@prisma/client';
 
 const router = Router();
 
 router.post(
-  '/create-category',
-  validationData(CategoryValidation.createCategoryValidation),
+  '/',
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   CategoryController.createCategory,
 );
 
-router.get('/get-all-category', CategoryController.getAllCategory);
+router.get('/', CategoryController.getAllCategories);
 
 router.patch(
-  '/update-category/:id',
-  validationData(CategoryValidation.updateCategoryValidation),
+  '/:id',
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   CategoryController.updateCategory,
 );
 
-router.delete('/delete-category/:id', CategoryController.deleteCategory);
+router.delete(
+  '/:id',
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  CategoryController.deleteCategory,
+);
 
 export const CategoryRouter = router;

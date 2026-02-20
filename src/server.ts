@@ -11,7 +11,8 @@ let server: Server;
 function main() {
   try {
     server = app.listen(PORT, () => {
-      console.log(`Easy Search Server running on port ${PORT}`);
+      console.log(`LMS Server running on port http://localhost:${PORT}`);
+      console.log(`Swagger Docs available at http://localhost:${PORT}/docs`);
     });
   } catch (error) {
     console.log(error);

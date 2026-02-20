@@ -1,11 +1,10 @@
 {
-  "name": "easysearch-server",
+  "name": "lms",
   "version": "1.0.0",
   "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "build:swagger": "tsc docs/swagger.config.ts --outDir docs --target es2020 --module commonjs --esModuleInterop --allowSyntheticDefaultImports",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "start": "node dist/server.js",
     "lint": "npx eslint src --ignore-pattern .ts",
@@ -30,6 +29,7 @@
     "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^6.19.0",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
@@ -42,6 +42,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",

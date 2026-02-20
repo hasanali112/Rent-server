@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { UserRouter } from '../modules/user/user.routes';
-import { AuthRouter } from '../modules/auth/auth.routes';
-import { CategoryRouter } from '../modules/category/category.routes';
-import { HouseRentRouter } from '../modules/houseRent/houseRent.routes';
-import { HostelRentRouter } from '../modules/hostelRent/hostelRent.routes';
+import { UserRouter } from '../modules/user';
+import { AuthRouter } from '../modules/auth';
+import { AdminRouter } from '../modules/admin';
+import { CategoryRouter } from '../modules/category';
+import { CourseRouter } from '../modules/course';
+import { LessonRouter } from '../modules/lesson';
+import { InstructorRouter } from '../modules/user';
 
 const middlewareRouter = Router();
 
@@ -17,16 +19,24 @@ const Routes = [
     router: AuthRouter,
   },
   {
+    path: '/admin',
+    router: AdminRouter,
+  },
+  {
     path: '/categories',
     router: CategoryRouter,
   },
   {
-    path: '/house-rent',
-    router: HouseRentRouter,
+    path: '/courses',
+    router: CourseRouter,
   },
   {
-    path: '/hostel-rent',
-    router: HostelRentRouter,
+    path: '/lessons',
+    router: LessonRouter,
+  },
+  {
+    path: '/instructor',
+    router: InstructorRouter,
   },
 ];
 

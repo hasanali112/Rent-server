@@ -1,37 +1,22 @@
 import { UserRole } from './user.constant';
 import { TUser } from './user.interface';
-import prisma from '../../utils/prisma';
 import { Hashing } from '../../utils/hashing';
 import config from '../../config';
 import { JWTHelper } from '../../utils/JwtHelper';
+import { UserRepository } from '../../data-access/user';
+import prisma from '../../utils/prisma';
 
 //create admin
 const createAdmin = async (payload: TUser) => {
   const hashedPassword = await Hashing.hashPassword(payload.password);
   const userData = {
     ...(payload.email && { email: payload.email }),
-    ...(payload.contactNumber && { contactNumber: payload.contactNumber }),
+    contactNumber: payload.contactNumber,
     password: hashedPassword,
-    role: UserRole.ADMIN,
+    role: 'ADMIN',
   };
 
-  const AdminData = {
-    name: payload.name,
-    ...(payload.email && { email: payload.email }),
-    ...(payload.contactNumber && { contactNumber: payload.contactNumber }),
-  };
-  const user = await prisma.$transaction(async transactionClient => {
-    const createdUser = await transactionClient.user.create({
-      data: userData,
-    });
-    const admin = await transactionClient.admin.create({
-      data: {
-        ...AdminData,
-        userId: createdUser.id,
-      },
-    });
-    return admin;
-  });
+  const user = await UserRepository.createAdminWithUser(userData as any);
 
   return user;
 };
@@ -39,45 +24,18 @@ const createAdmin = async (payload: TUser) => {
 //Register user
 const resgisterUser = async (payload: TUser) => {
   const role =
-    payload.role === UserRole.HOST ? UserRole.HOST : UserRole.CUSTOMER;
+    payload.role === UserRole.INSTRUCTOR
+      ? UserRole.INSTRUCTOR
+      : UserRole.STUDENT;
   const hashedPassword = await Hashing.hashPassword(payload.password);
   const userData = {
     ...(payload.email && { email: payload.email }),
-    ...(payload.contactNumber && { contactNumber: payload.contactNumber }),
+    contactNumber: payload.contactNumber,
     password: hashedPassword,
     role: role,
   };
 
-  const cutomerData = {
-    name: payload.name,
-    ...(payload.email && { email: payload.email }),
-    ...(payload.contactNumber && { contactNumber: payload.contactNumber }),
-    ...(payload.profilePhoto && { profilePhoto: payload.profilePhoto }),
-  };
-
-  const user = await prisma.$transaction(async transactionClient => {
-    const createdUser = await transactionClient.user.create({
-      data: userData,
-    });
-
-    if (payload.role === UserRole.HOST) {
-      await transactionClient.host.create({
-        data: {
-          ...cutomerData,
-          userId: createdUser.id,
-        },
-      });
-    } else {
-      await transactionClient.customer.create({
-        data: {
-          ...cutomerData,
-          userId: createdUser.id,
-        },
-      });
-    }
-
-    return createdUser;
-  });
+  const user = await UserRepository.createUserWithProfile(userData as any);
 
   const jwtpayload = {
     id: user.id,
@@ -102,7 +60,33 @@ const resgisterUser = async (payload: TUser) => {
   };
 };
 
+const suspendUser = async (
+  id: string,
+  isSuspended: boolean,
+  requesterRole: string,
+) => {
+  const user = await prisma.user.findUnique({ where: { id } });
+  if (!user) throw new Error('User not found');
+
+  if (user.role === 'SUPER_ADMIN' && requesterRole !== 'SUPER_ADMIN') {
+    throw new Error('Forbidden: Admin cannot suspend Super Admin');
+  }
+
+  const result = await UserRepository.updateUserStatus(
+    id,
+    isSuspended ? 'BLOCKED' : 'ACTIVE',
+  );
+  return result;
+};
+
+const getAllUsers = async () => {
+  const result = await UserRepository.getAllUsers();
+  return result;
+};
+
 export const UserService = {
   createAdmin,
   resgisterUser,
+  suspendUser,
+  getAllUsers,
 };
